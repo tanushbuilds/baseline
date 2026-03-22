@@ -49,10 +49,12 @@ public class PlayerShot : MonoBehaviour
         if (distanceToBall > hitRadius) return;
 
         float shotInput = playerInput.Player.ShotType.ReadValue<float>();
+        Vector2 moveInput = playerInput.Player.Move.ReadValue<Vector2>();
+
         float speed;
         float spinAmount;
-
         float arc;
+
         if (shotInput > 0.5f)
         {
             speed = topspinSpeed;
@@ -72,9 +74,17 @@ public class PlayerShot : MonoBehaviour
             arc = flatArc;
         }
 
+        // Directional target based on movement input
+        float directionOffset = moveInput.x * 4f;  // 4f = max left/right offset
+        Vector3 dynamicTarget = new Vector3(
+            targetCourtPosition.position.x + directionOffset,
+            targetCourtPosition.position.y,
+            targetCourtPosition.position.z
+        );
+
         Vector3 velocity = CalculateArcVelocity(
             ball.transform.position,
-            targetCourtPosition.position,
+            dynamicTarget,
             speed,
             arc
         );

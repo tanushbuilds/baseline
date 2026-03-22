@@ -8,8 +8,6 @@ public class BallPhysics : MonoBehaviour
     public float spinAmount = 0f;
 
     private Rigidbody rb;
-    private float spinDelay = 0.4f;
-    private float spinTimer = 0f;
     private bool spinActive = false;
 
     void Start()
@@ -22,24 +20,13 @@ public class BallPhysics : MonoBehaviour
         spinActive = false;
         spinAmount = 0f;
         spinAxis = Vector3.zero;
-        spinTimer = 0f;
         rb.angularVelocity = Vector3.zero;
     }
 
     void FixedUpdate()
     {
         if (spinActive)
-        {
-            Debug.Log("Magnus active, spinAmount: " + spinAmount + " velocity: " + rb.linearVelocity);
             ApplyMagnusEffect();
-        }
-
-        if (spinAmount != 0f && !spinActive)
-        {
-            spinTimer += Time.fixedDeltaTime;
-            if (spinTimer >= spinDelay)
-                spinActive = true;
-        }
     }
 
     void ApplyMagnusEffect()
@@ -52,7 +39,6 @@ public class BallPhysics : MonoBehaviour
     {
         spinAxis = axis;
         spinAmount = amount;
-        spinActive = false;
-        spinTimer = 0f;
+        spinActive = true;
     }
 }

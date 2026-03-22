@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &109287152
 Transform:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 52.2
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -318,7 +318,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.044726584, y: 0, z: 0, w: 0.9989993}
-  m_LocalPosition: {x: 0, y: 3.85, z: -16.93}
+  m_LocalPosition: {x: 0, y: 2.421, z: -14.508}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -563,7 +563,7 @@ Transform:
   m_GameObject: {fileID: 561017681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.5, z: -9.1}
+  m_LocalPosition: {x: 0, y: 1.5, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -584,12 +584,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
   flatSpeed: 35
   topspinSpeed: 24
-  sliceSpeed: 18
+  sliceSpeed: 20
   hitRadius: 2
   targetCourtPosition: {fileID: 1232951672}
   flatArc: 1.2
   topspinArc: 1.8
-  sliceArc: 1
+  sliceArc: 0.5
   ball: {fileID: 674182692}
 --- !u!1 &604740709
 GameObject:
@@ -978,9 +978,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ce94be370f5764c995eed46d2266d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallPhysics
-  magnusCoefficient: 0.07
+  magnusCoefficient: 0.02
   spinAxis: {x: 0, y: 0, z: 0}
-  spinAmount: 0
+  spinAmount: 1.5
 --- !u!1 &698720421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,7 +1263,7 @@ Transform:
   m_GameObject: {fileID: 2017160980}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.29, z: -7.49}
+  m_LocalPosition: {x: 0, y: 6.29, z: -8.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
