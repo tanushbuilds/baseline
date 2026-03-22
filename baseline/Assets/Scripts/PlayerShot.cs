@@ -39,16 +39,19 @@ public class PlayerShot : MonoBehaviour
 
     void Update()
     {
-        if (playerInput.Player.Hit.WasPressedThisFrame())
-            TryHit();
+        if (playerInput.Player.FlatShot.WasPressedThisFrame())
+            TryHit(0f);
+        if (playerInput.Player.TopspinShot.WasPressedThisFrame())
+            TryHit(1f);
+        if (playerInput.Player.SliceShot.WasPressedThisFrame())
+            TryHit(-1f);
     }
 
-    void TryHit()
+    void TryHit(float shotInput)
     {
         float distanceToBall = Vector3.Distance(transform.position, ball.transform.position);
         if (distanceToBall > hitRadius) return;
 
-        float shotInput = playerInput.Player.ShotType.ReadValue<float>();
         Vector2 moveInput = playerInput.Player.Move.ReadValue<Vector2>();
 
         float speed;

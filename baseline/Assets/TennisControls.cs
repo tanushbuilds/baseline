@@ -111,7 +111,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Hit"",
+                    ""name"": ""FlatShot"",
                     ""type"": ""Button"",
                     ""id"": ""9e0100a2-eea1-4eea-a279-64dc70ab6fa0"",
                     ""expectedControlType"": """",
@@ -120,13 +120,22 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ShotType"",
-                    ""type"": ""Value"",
-                    ""id"": ""c264b082-a348-4751-b5d4-5e801e5e33fc"",
-                    ""expectedControlType"": ""Axis"",
+                    ""name"": ""TopspinShot"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b7aad02-75e6-4d55-bd86-443f9b80f1e1"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SliceShot"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a1d9b03-6109-4498-8bd5-fff79641076e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -144,11 +153,33 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c5384bc3-7f5b-4869-9700-cfc17d491e5d"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Hit"",
+                    ""action"": ""FlatShot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00b84d33-a7bf-4e95-9abd-c470e0fda2ac"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TopspinShot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""454b42fe-5538-475f-807d-0b50458781cc"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SliceShot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -206,39 +237,6 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""3a5bfab7-cb36-40bd-b72e-3bb750c51dbf"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ShotType"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""169833bb-1e34-4aff-b191-408520a35cb9"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ShotType"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""1ab8dac1-f2bf-4937-bdd4-fc53c5d3e85b"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ShotType"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -249,8 +247,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-        m_Player_Hit = m_Player.FindAction("Hit", throwIfNotFound: true);
-        m_Player_ShotType = m_Player.FindAction("ShotType", throwIfNotFound: true);
+        m_Player_FlatShot = m_Player.FindAction("FlatShot", throwIfNotFound: true);
+        m_Player_TopspinShot = m_Player.FindAction("TopspinShot", throwIfNotFound: true);
+        m_Player_SliceShot = m_Player.FindAction("SliceShot", throwIfNotFound: true);
     }
 
     ~@TennisControls()
@@ -333,8 +332,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Sprint;
-    private readonly InputAction m_Player_Hit;
-    private readonly InputAction m_Player_ShotType;
+    private readonly InputAction m_Player_FlatShot;
+    private readonly InputAction m_Player_TopspinShot;
+    private readonly InputAction m_Player_SliceShot;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -355,13 +355,17 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Hit".
+        /// Provides access to the underlying input action "Player/FlatShot".
         /// </summary>
-        public InputAction @Hit => m_Wrapper.m_Player_Hit;
+        public InputAction @FlatShot => m_Wrapper.m_Player_FlatShot;
         /// <summary>
-        /// Provides access to the underlying input action "Player/ShotType".
+        /// Provides access to the underlying input action "Player/TopspinShot".
         /// </summary>
-        public InputAction @ShotType => m_Wrapper.m_Player_ShotType;
+        public InputAction @TopspinShot => m_Wrapper.m_Player_TopspinShot;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SliceShot".
+        /// </summary>
+        public InputAction @SliceShot => m_Wrapper.m_Player_SliceShot;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -394,12 +398,15 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
-            @Hit.started += instance.OnHit;
-            @Hit.performed += instance.OnHit;
-            @Hit.canceled += instance.OnHit;
-            @ShotType.started += instance.OnShotType;
-            @ShotType.performed += instance.OnShotType;
-            @ShotType.canceled += instance.OnShotType;
+            @FlatShot.started += instance.OnFlatShot;
+            @FlatShot.performed += instance.OnFlatShot;
+            @FlatShot.canceled += instance.OnFlatShot;
+            @TopspinShot.started += instance.OnTopspinShot;
+            @TopspinShot.performed += instance.OnTopspinShot;
+            @TopspinShot.canceled += instance.OnTopspinShot;
+            @SliceShot.started += instance.OnSliceShot;
+            @SliceShot.performed += instance.OnSliceShot;
+            @SliceShot.canceled += instance.OnSliceShot;
         }
 
         /// <summary>
@@ -417,12 +424,15 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
-            @Hit.started -= instance.OnHit;
-            @Hit.performed -= instance.OnHit;
-            @Hit.canceled -= instance.OnHit;
-            @ShotType.started -= instance.OnShotType;
-            @ShotType.performed -= instance.OnShotType;
-            @ShotType.canceled -= instance.OnShotType;
+            @FlatShot.started -= instance.OnFlatShot;
+            @FlatShot.performed -= instance.OnFlatShot;
+            @FlatShot.canceled -= instance.OnFlatShot;
+            @TopspinShot.started -= instance.OnTopspinShot;
+            @TopspinShot.performed -= instance.OnTopspinShot;
+            @TopspinShot.canceled -= instance.OnTopspinShot;
+            @SliceShot.started -= instance.OnSliceShot;
+            @SliceShot.performed -= instance.OnSliceShot;
+            @SliceShot.canceled -= instance.OnSliceShot;
         }
 
         /// <summary>
@@ -478,18 +488,25 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Hit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "FlatShot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnHit(InputAction.CallbackContext context);
+        void OnFlatShot(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ShotType" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "TopspinShot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnShotType(InputAction.CallbackContext context);
+        void OnTopspinShot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SliceShot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSliceShot(InputAction.CallbackContext context);
     }
 }

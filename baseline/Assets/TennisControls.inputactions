@@ -25,7 +25,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hit",
+                    "name": "FlatShot",
                     "type": "Button",
                     "id": "9e0100a2-eea1-4eea-a279-64dc70ab6fa0",
                     "expectedControlType": "",
@@ -34,13 +34,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ShotType",
-                    "type": "Value",
-                    "id": "c264b082-a348-4751-b5d4-5e801e5e33fc",
-                    "expectedControlType": "Axis",
+                    "name": "TopspinShot",
+                    "type": "Button",
+                    "id": "1b7aad02-75e6-4d55-bd86-443f9b80f1e1",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SliceShot",
+                    "type": "Button",
+                    "id": "7a1d9b03-6109-4498-8bd5-fff79641076e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -58,11 +67,33 @@
                 {
                     "name": "",
                     "id": "c5384bc3-7f5b-4869-9700-cfc17d491e5d",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Hit",
+                    "action": "FlatShot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00b84d33-a7bf-4e95-9abd-c470e0fda2ac",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TopspinShot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "454b42fe-5538-475f-807d-0b50458781cc",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SliceShot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -118,39 +149,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "3a5bfab7-cb36-40bd-b72e-3bb750c51dbf",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ShotType",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "169833bb-1e34-4aff-b191-408520a35cb9",
-                    "path": "<Keyboard>/v",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ShotType",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "1ab8dac1-f2bf-4937-bdd4-fc53c5d3e85b",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ShotType",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
