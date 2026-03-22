@@ -118,6 +118,15 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShotType"",
+                    ""type"": ""Value"",
+                    ""id"": ""c264b082-a348-4751-b5d4-5e801e5e33fc"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -197,6 +206,39 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""3a5bfab7-cb36-40bd-b72e-3bb750c51dbf"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShotType"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""169833bb-1e34-4aff-b191-408520a35cb9"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShotType"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""1ab8dac1-f2bf-4937-bdd4-fc53c5d3e85b"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShotType"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -208,6 +250,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Hit = m_Player.FindAction("Hit", throwIfNotFound: true);
+        m_Player_ShotType = m_Player.FindAction("ShotType", throwIfNotFound: true);
     }
 
     ~@TennisControls()
@@ -291,6 +334,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Hit;
+    private readonly InputAction m_Player_ShotType;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -314,6 +358,10 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Hit".
         /// </summary>
         public InputAction @Hit => m_Wrapper.m_Player_Hit;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ShotType".
+        /// </summary>
+        public InputAction @ShotType => m_Wrapper.m_Player_ShotType;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -349,6 +397,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @Hit.started += instance.OnHit;
             @Hit.performed += instance.OnHit;
             @Hit.canceled += instance.OnHit;
+            @ShotType.started += instance.OnShotType;
+            @ShotType.performed += instance.OnShotType;
+            @ShotType.canceled += instance.OnShotType;
         }
 
         /// <summary>
@@ -369,6 +420,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @Hit.started -= instance.OnHit;
             @Hit.performed -= instance.OnHit;
             @Hit.canceled -= instance.OnHit;
+            @ShotType.started -= instance.OnShotType;
+            @ShotType.performed -= instance.OnShotType;
+            @ShotType.canceled -= instance.OnShotType;
         }
 
         /// <summary>
@@ -430,5 +484,12 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnHit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ShotType" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShotType(InputAction.CallbackContext context);
     }
 }

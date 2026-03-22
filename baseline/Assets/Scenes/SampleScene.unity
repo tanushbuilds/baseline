@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &109287152
 Transform:
   m_ObjectHideFlags: 0
@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 561017684}
   - component: {fileID: 561017683}
   - component: {fileID: 561017682}
+  - component: {fileID: 561017685}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -569,6 +570,27 @@ Transform:
   - {fileID: 604740710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &561017685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561017681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2263725f1292a54caad9e3b31dc1f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
+  flatSpeed: 35
+  topspinSpeed: 24
+  sliceSpeed: 18
+  hitRadius: 2
+  targetCourtPosition: {fileID: 1232951672}
+  flatArc: 1.2
+  topspinArc: 1.8
+  sliceArc: 1
+  ball: {fileID: 674182692}
 --- !u!1 &604740709
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +719,7 @@ GameObject:
   - component: {fileID: 674182695}
   - component: {fileID: 674182694}
   - component: {fileID: 674182698}
+  - component: {fileID: 674182699}
   m_Layer: 0
   m_Name: BallVisual
   m_TagString: Untagged
@@ -943,6 +966,21 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &674182699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674182692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ce94be370f5764c995eed46d2266d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallPhysics
+  magnusCoefficient: 0.07
+  spinAxis: {x: 0, y: 0, z: 0}
+  spinAmount: 0
 --- !u!1 &698720421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1207,37 @@ Transform:
   - {fileID: 109287152}
   m_Father: {fileID: 698720422}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1232951671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232951672}
+  m_Layer: 0
+  m_Name: Player1Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232951672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232951671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 11.85}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2017160980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1263,7 @@ Transform:
   m_GameObject: {fileID: 2017160980}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.144, z: -3.82}
+  m_LocalPosition: {x: 0, y: 6.29, z: -7.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1211,3 +1280,4 @@ SceneRoots:
   - {fileID: 698720422}
   - {fileID: 2017160981}
   - {fileID: 561017684}
+  - {fileID: 1232951672}
