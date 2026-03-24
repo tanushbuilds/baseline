@@ -136,6 +136,15 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Takeback"",
+                    ""type"": ""Button"",
+                    ""id"": ""991fbd29-7b2a-4e1e-a844-2f8aed1d25c6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -237,6 +246,17 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0410ac0-b09e-463b-9209-1c6dd0be1237"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Takeback"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -250,6 +270,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         m_Player_FlatShot = m_Player.FindAction("FlatShot", throwIfNotFound: true);
         m_Player_TopspinShot = m_Player.FindAction("TopspinShot", throwIfNotFound: true);
         m_Player_SliceShot = m_Player.FindAction("SliceShot", throwIfNotFound: true);
+        m_Player_Takeback = m_Player.FindAction("Takeback", throwIfNotFound: true);
     }
 
     ~@TennisControls()
@@ -335,6 +356,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_FlatShot;
     private readonly InputAction m_Player_TopspinShot;
     private readonly InputAction m_Player_SliceShot;
+    private readonly InputAction m_Player_Takeback;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -366,6 +388,10 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/SliceShot".
         /// </summary>
         public InputAction @SliceShot => m_Wrapper.m_Player_SliceShot;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Takeback".
+        /// </summary>
+        public InputAction @Takeback => m_Wrapper.m_Player_Takeback;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -407,6 +433,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @SliceShot.started += instance.OnSliceShot;
             @SliceShot.performed += instance.OnSliceShot;
             @SliceShot.canceled += instance.OnSliceShot;
+            @Takeback.started += instance.OnTakeback;
+            @Takeback.performed += instance.OnTakeback;
+            @Takeback.canceled += instance.OnTakeback;
         }
 
         /// <summary>
@@ -433,6 +462,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @SliceShot.started -= instance.OnSliceShot;
             @SliceShot.performed -= instance.OnSliceShot;
             @SliceShot.canceled -= instance.OnSliceShot;
+            @Takeback.started -= instance.OnTakeback;
+            @Takeback.performed -= instance.OnTakeback;
+            @Takeback.canceled -= instance.OnTakeback;
         }
 
         /// <summary>
@@ -508,5 +540,12 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSliceShot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Takeback" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTakeback(InputAction.CallbackContext context);
     }
 }

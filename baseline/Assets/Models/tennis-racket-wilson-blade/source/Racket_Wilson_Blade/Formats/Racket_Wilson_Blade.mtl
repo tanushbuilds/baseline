@@ -1,0 +1,45 @@
+# Blender 3.4.1 MTL File: 'Raketka_base6.blend'
+# www.blender.org
+
+newmtl Cylinder
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/vladm/Desktop/Raketka/Textures/Cylinder/Cylinder_Base_color.png
+map_Ns C:/Users/vladm/Desktop/Raketka/Textures/Cylinder/Cylinder_Roughness.png
+
+newmtl Material.002
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Raketka
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/vladm/Desktop/Raketka/Textures/Raketka/Raketka_Base_color.png
+map_Ns C:/Users/vladm/Desktop/Raketka/Textures/Raketka/Raketka_Roughness.png
+map_refl C:/Users/vladm/Desktop/Raketka/Textures/Raketka/Raketka_Metallic.png
+map_Bump -bm 1.000000 C:/Users/vladm/Desktop/Raketka/Textures/Raketka/Raketka_Normal_OpenGL.png
+
+newmtl Rychka
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/vladm/Desktop/Raketka/Textures/Rychka/Rychka_Base_color.png
+map_Ns C:/Users/vladm/Desktop/Raketka/Textures/Rychka/Rychka_Roughness.png
+map_Bump -bm 1.000000 C:/Users/vladm/Desktop/Raketka/Textures/Rychka/Rychka_Normal_OpenGL.png
