@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isSprinting;
 
     private TennisControls playerInput;
+    public Transform playerBody;
 
     void Awake()
     {
@@ -42,7 +43,15 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+        Vector3 forward = playerBody.forward;
+        Vector3 right = playerBody.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized;
         float targetSpeed = isSprinting ? sprintSpeed : moveSpeed;
 
         Vector3 targetVelocity = moveDirection * targetSpeed;

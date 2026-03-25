@@ -145,6 +145,15 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""c1fafb97-8dbf-44e5-8a98-519f580a2dbf"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -250,11 +259,22 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c0410ac0-b09e-463b-9209-1c6dd0be1237"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Takeback"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47548579-3732-48e5-a84f-dccb543a8118"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -271,6 +291,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         m_Player_TopspinShot = m_Player.FindAction("TopspinShot", throwIfNotFound: true);
         m_Player_SliceShot = m_Player.FindAction("SliceShot", throwIfNotFound: true);
         m_Player_Takeback = m_Player.FindAction("Takeback", throwIfNotFound: true);
+        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
     }
 
     ~@TennisControls()
@@ -357,6 +378,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TopspinShot;
     private readonly InputAction m_Player_SliceShot;
     private readonly InputAction m_Player_Takeback;
+    private readonly InputAction m_Player_Look;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -392,6 +414,10 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Takeback".
         /// </summary>
         public InputAction @Takeback => m_Wrapper.m_Player_Takeback;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_Player_Look;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +462,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @Takeback.started += instance.OnTakeback;
             @Takeback.performed += instance.OnTakeback;
             @Takeback.canceled += instance.OnTakeback;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         /// <summary>
@@ -465,6 +494,9 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
             @Takeback.started -= instance.OnTakeback;
             @Takeback.performed -= instance.OnTakeback;
             @Takeback.canceled -= instance.OnTakeback;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         /// <summary>
@@ -547,5 +579,12 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTakeback(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
     }
 }

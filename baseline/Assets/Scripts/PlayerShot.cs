@@ -79,7 +79,7 @@ public class PlayerShot : MonoBehaviour
     IEnumerator DelayedHit(float shotInput)
     {
         // Wait until animation reaches contact point
-        yield return new WaitForSeconds(0.29f);
+        yield return new WaitForSeconds(0.2083f);
 
         Vector2 moveInput = playerInput.Player.Move.ReadValue<Vector2>();
         float speed;
