@@ -3,11 +3,11 @@ using UnityEngine;
 public class BallPhysics : MonoBehaviour
 {
     [Header("Spin")]
-    public float magnusCoefficient = 0.05f;
-    public Vector3 spinAxis = Vector3.zero;
-    public float spinAmount = 0f;
+    [SerializeField] private float magnusCoefficient = 0.05f;
 
     private Rigidbody rb;
+    private Vector3 spinAxis = Vector3.zero;
+    private float spinAmount = 0f;
     private bool spinActive = false;
 
     void Start()

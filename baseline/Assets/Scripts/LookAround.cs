@@ -4,14 +4,12 @@ using UnityEngine.InputSystem;
 public class LookAround : MonoBehaviour
 {
     [Header("Look Settings")]
-    public float sensitivity = 0.3f;
-    public float verticalClamp = 80f;
+    [SerializeField] private float sensitivity = 0.3f;
+    [SerializeField] private float verticalClamp = 80f;
+    [SerializeField] private Transform playerBody;
 
     private TennisControls playerInput;
-    private InputAction lookAction;
     private float xRotation = 0f;
-
-    public Transform playerBody;
 
     void Awake()
     {

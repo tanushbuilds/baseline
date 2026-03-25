@@ -4,17 +4,16 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed = 10f;
-    public float sprintSpeed = 16f;
-    public float acceleration = 15f;
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float sprintSpeed = 16f;
+    [SerializeField] private float acceleration = 15f;
+    [SerializeField] private Transform playerBody;
 
     private CharacterController cc;
     private Vector3 velocity;
     private Vector2 moveInput;
     private bool isSprinting;
-
     private TennisControls playerInput;
-    public Transform playerBody;
 
     void Awake()
     {
@@ -22,21 +21,13 @@ public class PlayerMovement : MonoBehaviour
         playerInput = new TennisControls();
     }
 
-    void OnEnable()
-    {
-        playerInput.Enable();
-    }
-
-    void OnDisable()
-    {
-        playerInput.Disable();
-    }
+    void OnEnable() { playerInput.Enable(); }
+    void OnDisable() { playerInput.Disable(); }
 
     void Update()
     {
         moveInput = playerInput.Player.Move.ReadValue<Vector2>();
         isSprinting = playerInput.Player.Sprint.IsPressed();
-
         HandleMovement();
         HandleGravity();
     }

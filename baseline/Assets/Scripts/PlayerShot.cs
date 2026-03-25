@@ -5,27 +5,32 @@ using System.Collections;
 public class PlayerShot : MonoBehaviour
 {
     [Header("Shot Settings")]
-    public float flatSpeed = 28f;
-    public float topspinSpeed = 22f;
-    public float sliceSpeed = 18f;
-    public float hitRadius = 2f;
-    public Transform targetCourtPosition;
+    [SerializeField] private float flatSpeed = 28f;
+    [SerializeField] private float topspinSpeed = 22f;
+    [SerializeField] private float sliceSpeed = 18f;
+    [SerializeField] private float hitRadius = 2f;
+    [SerializeField] private Transform targetCourtPosition;
 
     [Header("Arc Heights")]
-    public float flatArc = 1.2f;
-    public float topspinArc = 1.8f;
-    public float sliceArc = 1.0f;
+    [SerializeField] private float flatArc = 1.2f;
+    [SerializeField] private float topspinArc = 1.8f;
+    [SerializeField] private float sliceArc = 1.0f;
+
+    [Header("Takeback")]
+    [SerializeField] private float takebackThreshold = 0.2f;
+
+    [Header("Timing")]
+    [SerializeField] private float hitDelay = 0.2083f;
 
     [Header("References")]
-    public GameObject ball;
+    [SerializeField] private GameObject ball;
     [SerializeField] private Animator anim;
+    [SerializeField] private Transform playerBody;
 
     private TennisControls playerInput;
     private Rigidbody ballRb;
-    private bool isInTakeback = false;
-    public Transform playerBody;
     private float takebackTimer = 0f;
-    private float takebackThreshold = 0.2f; // minimum seconds of takeback required
+
     void Awake()
     {
         playerInput = new TennisControls();
@@ -35,20 +40,16 @@ public class PlayerShot : MonoBehaviour
     void OnEnable() { playerInput.Enable(); }
     void OnDisable() { playerInput.Disable(); }
 
-
-
     void Update()
     {
         if (playerInput.Player.Takeback.IsPressed())
         {
             anim.SetBool("Takeback", true);
-            isInTakeback = true;
             takebackTimer += Time.deltaTime;
         }
         else
         {
             anim.SetBool("Takeback", false);
-            isInTakeback = false;
             takebackTimer = 0f;
         }
 
@@ -62,7 +63,6 @@ public class PlayerShot : MonoBehaviour
 
     void TryHit(float shotInput)
     {
-        // Only allow hit if takeback threshold was reached
         if (takebackTimer < takebackThreshold) return;
 
         anim.SetTrigger("Hit");
@@ -77,15 +77,14 @@ public class PlayerShot : MonoBehaviour
         if (side >= 0)
             Debug.Log("Forehand");
         else
-            Debug.Log("Backeback");
+            Debug.Log("Backhand");
 
         StartCoroutine(DelayedHit(shotInput));
     }
 
     IEnumerator DelayedHit(float shotInput)
     {
-        // Wait until animation reaches contact point
-        yield return new WaitForSeconds(0.2083f);
+        yield return new WaitForSeconds(hitDelay);
 
         Vector2 moveInput = playerInput.Player.Move.ReadValue<Vector2>();
         float speed;
