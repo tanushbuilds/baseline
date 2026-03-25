@@ -23,7 +23,9 @@ public class PlayerShot : MonoBehaviour
     private TennisControls playerInput;
     private Rigidbody ballRb;
     private bool isInTakeback = false;
-
+    public Transform playerBody;
+    private float takebackTimer = 0f;
+    private float takebackThreshold = 0.2f; // minimum seconds of takeback required
     void Awake()
     {
         playerInput = new TennisControls();
@@ -33,45 +35,49 @@ public class PlayerShot : MonoBehaviour
     void OnEnable() { playerInput.Enable(); }
     void OnDisable() { playerInput.Disable(); }
 
+
+
     void Update()
     {
-        // Takeback — hold T
         if (playerInput.Player.Takeback.IsPressed())
         {
-            if (!isInTakeback)
-            {
-                isInTakeback = true;
-                anim.SetBool("Takeback", true);
-            }
+            anim.SetBool("Takeback", true);
+            isInTakeback = true;
+            takebackTimer += Time.deltaTime;
         }
         else
         {
-            if (isInTakeback)
-            {
-                isInTakeback = false;
-                anim.SetBool("Takeback", false);
-            }
+            anim.SetBool("Takeback", false);
+            isInTakeback = false;
+            takebackTimer = 0f;
         }
 
-        // Only allow hitting if takeback is active
-        if (isInTakeback)
-        {
-            if (playerInput.Player.FlatShot.WasPressedThisFrame())
-                TryHit(0f);
-            if (playerInput.Player.TopspinShot.WasPressedThisFrame())
-                TryHit(1f);
-            if (playerInput.Player.SliceShot.WasPressedThisFrame())
-                TryHit(-1f);
-        }
+        if (playerInput.Player.FlatShot.WasPressedThisFrame())
+            TryHit(0f);
+        if (playerInput.Player.TopspinShot.WasPressedThisFrame())
+            TryHit(1f);
+        if (playerInput.Player.SliceShot.WasPressedThisFrame())
+            TryHit(-1f);
     }
 
     void TryHit(float shotInput)
     {
+        // Only allow hit if takeback threshold was reached
+        if (takebackTimer < takebackThreshold) return;
+
+        anim.SetTrigger("Hit");
+        takebackTimer = 0f;
+
         float distanceToBall = Vector3.Distance(transform.position, ball.transform.position);
         if (distanceToBall > hitRadius) return;
 
-        anim.SetTrigger("Hit");
-        isInTakeback = false;
+        Vector3 toBall = ball.transform.position - transform.position;
+        float side = Vector3.Dot(toBall, playerBody.right);
+
+        if (side >= 0)
+            Debug.Log("Forehand");
+        else
+            Debug.Log("Backeback");
 
         StartCoroutine(DelayedHit(shotInput));
     }

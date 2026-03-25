@@ -962,13 +962,14 @@ MonoBehaviour:
   flatSpeed: 35
   topspinSpeed: 24
   sliceSpeed: 15
-  hitRadius: 1000
+  hitRadius: 2.5
   targetCourtPosition: {fileID: 1232951672}
   flatArc: -1.2
   topspinArc: 1.8
   sliceArc: -3
   ball: {fileID: 1988229038}
   anim: {fileID: 375355838}
+  playerBody: {fileID: 561017684}
 --- !u!1 &698720421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,7 +1992,7 @@ Transform:
   m_GameObject: {fileID: 2017160980}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8, y: 9.96, z: -8.89}
+  m_LocalPosition: {x: 1.08, y: 9.96, z: -8.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
