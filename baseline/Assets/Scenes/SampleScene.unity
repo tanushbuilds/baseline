@@ -562,7 +562,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 561017684}
     m_Modifications:
     - target: {fileID: -9216032812430665385, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9216032812430665385, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9133024919559428315, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -9118265878504537491, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
@@ -571,6 +579,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -9110726728997863149, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -9110726728997863149, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_StaticShadowCaster
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -9080703086378866788, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
@@ -670,6 +682,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4265174590265761523, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4265174590265761523, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -695,7 +711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2037884248300995540, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2032160955178683256, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -807,7 +823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3964350945898810324, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4272622299332435840, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1661,7 +1677,7 @@ Transform:
   m_GameObject: {fileID: 1204383973}
   serializedVersion: 2
   m_LocalRotation: {x: 0.24911971, y: 0.31800553, z: -0.086996496, w: 0.9106281}
-  m_LocalPosition: {x: 2.73372, y: 6.35205, z: -8.88021}
+  m_LocalPosition: {x: 0, y: 0, z: -8.88021}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2252,8 +2268,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallPhysics
   magnusCoefficient: 0.02
+  spinDecayRate: 2
   audioSource: {fileID: 1988229045}
   bounceSound: {fileID: 8300000, guid: 376f70fbd9c06fd4dbb058029e810d27, type: 3}
+  bounceMinPitch: 0.95
+  bounceMaxPitch: 1.05
 --- !u!96 &1988229042
 TrailRenderer:
   serializedVersion: 4
