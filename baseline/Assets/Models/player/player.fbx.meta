@@ -8,52 +8,52 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Ch01_body
-    second: {fileID: 2100000, guid: bf1a4991cc2d6d84d9caecddd87a3bd8, type: 2}
+    second: {fileID: 2100000, guid: 92435b26b72168c4193debf77f306a2e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 045e75c904451ec4a87d2941144ce972, type: 2}
+      name: dark
+    second: {fileID: 2100000, guid: 3b6e8f9cd6b493541a0a23f77536f90a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: strings
+    second: {fileID: 2100000, guid: dd1c2eb75678f7140bc097368d321434, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tennis_racquet
+    second: {fileID: 2100000, guid: e6e2dca07b291d9459de09f963862a09, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch01_1001_Diffuse
-    second: {fileID: 2800000, guid: e75f1fd550acd974b9ce67a0a80f3943, type: 3}
+    second: {fileID: 2800000, guid: 695ac93d41498e84eb81fce4773eedd4, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch01_1001_Glossiness
-    second: {fileID: 2800000, guid: 1b37a81aeb9c7e343ae0af062ea8d240, type: 3}
+    second: {fileID: 2800000, guid: a29f7efd09fba304bbdfbe2a335fd728, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch01_1001_Normal
-    second: {fileID: 2800000, guid: 95245cb26cf545f4583b210e080a4fee, type: 3}
+    second: {fileID: 2800000, guid: 65f71d18dd61b65429cb57128a1b6be2, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ch01_1001_Specular
-    second: {fileID: 2800000, guid: 473496093755a38408a30aa8fb74a1d6, type: 3}
+    second: {fileID: 2800000, guid: 8ac2493a8b2c2d44a864a3c2040b136c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Cylinder_Base_color
-    second: {fileID: 2800000, guid: f43e9834c1d90c341a587d3aabcebb28, type: 3}
+      name: Image_0
+    second: {fileID: 2800000, guid: 99e3e7ba27fc792408fe58d2da48658c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: Cylinder_Roughness
-    second: {fileID: 2800000, guid: bba3a8d5ccc2b3b4288affbf5b23f688, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Raketka_Metallic
-    second: {fileID: 2800000, guid: ae5450bb05a3dc440ace4360530a1790, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Rychka_Normal_OpenGL
-    second: {fileID: 2800000, guid: 7267f2727a0041b4a9d462cae1b6b00b, type: 3}
+      name: Image_2
+    second: {fileID: 2800000, guid: b61a22dad8386c544a170d3a4c1fecbf, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

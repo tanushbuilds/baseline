@@ -22,6 +22,17 @@ public class PlayerShot : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float hitDelay = 0.2083f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource hitAudioSource;
+    [SerializeField] private AudioSource whooshAudioSource;
+    [SerializeField] private AudioClip flatHitSound;
+    [SerializeField] private AudioClip topspinHitSound;
+    [SerializeField] private AudioClip sliceHitSound;
+    [SerializeField] private AudioClip racketWhoosh;
+    [SerializeField] private float whooshMinPitch = 0.9f;
+    [SerializeField] private float whooshMaxPitch = 1.1f;
+
+
     [Header("References")]
     [SerializeField] private GameObject ball;
     [SerializeField] private Animator anim;
@@ -66,6 +77,9 @@ public class PlayerShot : MonoBehaviour
         if (takebackTimer < takebackThreshold) return;
 
         anim.SetTrigger("Hit");
+        if (whooshAudioSource != null && racketWhoosh != null)
+            whooshAudioSource.pitch = Random.Range(whooshMinPitch, whooshMaxPitch);
+            whooshAudioSource.PlayOneShot(racketWhoosh);
         takebackTimer = 0f;
 
         float distanceToBall = Vector3.Distance(transform.position, ball.transform.position);
@@ -85,6 +99,15 @@ public class PlayerShot : MonoBehaviour
     IEnumerator DelayedHit(float shotInput)
     {
         yield return new WaitForSeconds(hitDelay);
+
+        CameraShake.Instance.ShakeOnHit();
+
+        AudioClip clipToPlay = shotInput > 0.5f ? topspinHitSound
+                             : shotInput < -0.5f ? sliceHitSound
+                             : flatHitSound;
+
+        if (hitAudioSource != null && clipToPlay != null)
+            hitAudioSource.PlayOneShot(clipToPlay);
 
         Vector2 moveInput = playerInput.Player.Move.ReadValue<Vector2>();
         float speed;
