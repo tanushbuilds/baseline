@@ -132,12 +132,6 @@ public class PlayerShot : MonoBehaviour
     {
         if (takebackTimer < takebackThreshold) return;
 
-        float distanceToBall = Vector3.Distance(transform.position, ball.transform.position);
-        if (distanceToBall > hitRadius) return;
-
-        float timingScore = CalculateTimingScore();
-        CloseTimingWindow();
-
         anim.SetTrigger("Hit");
         if (whooshAudioSource != null && racketWhoosh != null)
         {
@@ -145,6 +139,12 @@ public class PlayerShot : MonoBehaviour
             whooshAudioSource.PlayOneShot(racketWhoosh);
         }
         takebackTimer = 0f;
+
+        float distanceToBall = Vector3.Distance(transform.position, ball.transform.position);
+        if (distanceToBall > hitRadius) return;
+
+        float timingScore = CalculateTimingScore();
+        CloseTimingWindow();
 
         Vector3 toBall = ball.transform.position - transform.position;
         float side = Vector3.Dot(toBall, playerBody.right);
