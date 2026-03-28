@@ -3,57 +3,7 @@ guid: 60b7039b78fd28041ba2644046a9a082
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ch01_body
-    second: {fileID: 2100000, guid: 92435b26b72168c4193debf77f306a2e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: dark
-    second: {fileID: 2100000, guid: 3b6e8f9cd6b493541a0a23f77536f90a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: strings
-    second: {fileID: 2100000, guid: dd1c2eb75678f7140bc097368d321434, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: tennis_racquet
-    second: {fileID: 2100000, guid: e6e2dca07b291d9459de09f963862a09, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch01_1001_Diffuse
-    second: {fileID: 2800000, guid: 695ac93d41498e84eb81fce4773eedd4, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch01_1001_Glossiness
-    second: {fileID: 2800000, guid: a29f7efd09fba304bbdfbe2a335fd728, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch01_1001_Normal
-    second: {fileID: 2800000, guid: 65f71d18dd61b65429cb57128a1b6be2, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch01_1001_Specular
-    second: {fileID: 2800000, guid: 8ac2493a8b2c2d44a864a3c2040b136c, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Image_0
-    second: {fileID: 2800000, guid: 99e3e7ba27fc792408fe58d2da48658c, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Image_2
-    second: {fileID: 2800000, guid: b61a22dad8386c544a170d3a4c1fecbf, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -150,7 +100,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

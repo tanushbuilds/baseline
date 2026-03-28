@@ -1,9 +1,74 @@
 fileFormatVersion: 2
-guid: b3073955da7504946bcd8a8cd870b7a1
+guid: f7498f06383692140bc33ad6f45ebc5c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #18.001
+    second: {fileID: 2100000, guid: 03cc49d5d71a1a94a8d1d0c19af64c24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2.001
+    second: {fileID: 2100000, guid: bf9a22cae73a55446a0c732d5acb5dff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #23.001
+    second: {fileID: 2100000, guid: 7c0328444f21ed04d9d7d0413105a415, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #3.001
+    second: {fileID: 2100000, guid: d02b75d1d3b7f7244a2e6d5029d54362, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #4.001
+    second: {fileID: 2100000, guid: fd781620f47ae1a4985668efdeba3ca8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #5.001
+    second: {fileID: 2100000, guid: d823154a46f07a44d962b65879dd1330, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #6.001
+    second: {fileID: 2100000, guid: 70f43a5f3c1271c4ea18dd56bca421ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Net_01_4096.001
+    second: {fileID: 2100000, guid: a7ecf79433b6f174aaf0118d78a68dc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Net_02_2048.001
+    second: {fileID: 2100000, guid: 217a36d8e018a41478dc73463c6476f8, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 5311628e621658f891a669c5e7578733
+    second: {fileID: 2800000, guid: 2c58774a3de3b1a40977bf247b785b09, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Net_01_4096_BaseColor
+    second: {fileID: 2800000, guid: 7eec6e78152718844aebfe78b9dfafbd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Net_02_2048_BaseColor
+    second: {fileID: 2800000, guid: 281c7b8722234284e9155887ccce0913, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: depositphotos_3694648-stock-photo-artificial-grass-field-top-view
+    second: {fileID: 2800000, guid: 398a3b7eed1e22a4bbf527d43e27f6e0, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -29,36 +94,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Armature|ForehandContact
-      takeName: Armature|ForehandContact
-      internalID: 5315281064643221917
-      firstFrame: 0
-      lastFrame: 11
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
