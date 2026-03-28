@@ -1050,7 +1050,7 @@ MonoBehaviour:
   hitDelay: 0.2083
   perfectWindowDuration: 0.15
   totalTimingWindow: 0.5
-  minPowerMultiplier: 0.45
+  minPowerMultiplier: 0.68
   maxDirectionError: 12
   hitAudioSource: {fileID: 561017686}
   whooshAudioSource: {fileID: 561017687}
