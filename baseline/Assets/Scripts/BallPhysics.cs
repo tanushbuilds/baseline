@@ -5,9 +5,6 @@ public class BallPhysics : MonoBehaviour
     [Header("Spin")]
     [SerializeField] private float magnusCoefficient = 0.05f;
 
-    [Header("Spin Decay")]
-    [SerializeField] private float spinDecayRate = 2f;
-
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip bounceSound;
@@ -32,16 +29,21 @@ public class BallPhysics : MonoBehaviour
             {
                 float impactSpeed = collision.relativeVelocity.magnitude;
                 float volume = Mathf.Clamp(impactSpeed / 20f, 0.1f, 1f);
-                float pitch = Random.Range(bounceMinPitch, bounceMaxPitch);
-
-                audioSource.pitch = pitch;
+                audioSource.pitch = Random.Range(bounceMinPitch, bounceMaxPitch);
                 audioSource.PlayOneShot(bounceSound, volume);
             }
+
+            spinAmount *= 0.5f;
+            rb.angularVelocity *= 0.5f;
+
+            if (Mathf.Abs(spinAmount) < 0.05f)
+            {
+                spinActive = false;
+                spinAmount = 0f;
+                spinAxis = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
         }
-    spinActive = false;
-        spinAmount = 0f;
-        spinAxis = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
     }
 
     void FixedUpdate()
