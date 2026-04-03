@@ -23,14 +23,19 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private float hitDelay = 0.2083f;
 
     [Header("Timing System")]
-    [Tooltip("How long (seconds) after the ball enters hit radius the 'perfect' window lasts")]
     [SerializeField] private float perfectWindowDuration = 0.15f;
-    [Tooltip("Total window before shot is considered too late")]
     [SerializeField] private float totalTimingWindow = 0.5f;
-    [Tooltip("Minimum speed multiplier on a completely mistimed shot (0-1)")]
     [SerializeField] private float minPowerMultiplier = 0.45f;
-    [Tooltip("Max direction error (degrees) added on a mistimed shot")]
     [SerializeField] private float maxDirectionError = 12f;
+
+    [Header("Input")]
+    [SerializeField] private InputActionAsset inputActionAsset;
+    [SerializeField] private string actionMapName = "Player";
+    [SerializeField] private string moveActionName = "Move";
+    [SerializeField] private string takebackActionName = "Takeback";
+    [SerializeField] private string flatActionName = "FlatShot";
+    [SerializeField] private string topspinActionName = "TopspinShot";
+    [SerializeField] private string sliceActionName = "SliceShot";
 
     [Header("Audio")]
     [SerializeField] private AudioSource hitAudioSource;
@@ -47,108 +52,117 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Transform playerBody;
 
-    private TennisControls playerInput;
+    private InputAction moveAction;
+    private InputAction takebackAction;
+    private InputAction flatAction;
+    private InputAction topspinAction;
+    private InputAction sliceAction;
+
     private Rigidbody ballRb;
     private float takebackTimer = 0f;
 
-    // Timing state
+    /*
     private bool timingWindowOpen = false;
     private float timingWindowTimer = 0f;
     private bool ballWasInRange = false;
+    */
 
     void Awake()
     {
-        playerInput = new TennisControls();
         ballRb = ball.GetComponent<Rigidbody>();
+
+        var map = inputActionAsset.FindActionMap(actionMapName, true);
+        moveAction = map.FindAction(moveActionName, true);
+        takebackAction = map.FindAction(takebackActionName, true);
+        flatAction = map.FindAction(flatActionName, true);
+        topspinAction = map.FindAction(topspinActionName, true);
+        sliceAction = map.FindAction(sliceActionName, true);
     }
 
-    void OnEnable() { playerInput.Enable(); }
-    void OnDisable() { playerInput.Disable(); }
+    void OnEnable()
+    {
+        moveAction.Enable();
+        takebackAction.Enable();
+        flatAction.Enable();
+        topspinAction.Enable();
+        sliceAction.Enable();
+    }
+
+    void OnDisable()
+    {
+        moveAction.Disable();
+        takebackAction.Disable();
+        flatAction.Disable();
+        topspinAction.Disable();
+        sliceAction.Disable();
+    }
 
     void Update()
     {
-        // Takeback
-        if (playerInput.Player.Takeback.IsPressed())
-        {
-            anim.SetBool("Takeback", true);
-            takebackTimer += Time.deltaTime;
-        }
-        else
-        {
-            anim.SetBool("Takeback", false);
-            takebackTimer = 0f;
-        }
+        HandleTakeback();
 
+        /*
         bool ballInRange = Vector3.Distance(transform.position, ball.transform.position) <= hitRadius;
-        if (ballInRange && !ballWasInRange)
-            OpenTimingWindow();
-        else if (!ballInRange && ballWasInRange)
-            CloseTimingWindow();
+        if (ballInRange && !ballWasInRange) OpenTimingWindow();
+        else if (!ballInRange && ballWasInRange) CloseTimingWindow();
         ballWasInRange = ballInRange;
 
         if (timingWindowOpen)
             timingWindowTimer += Time.deltaTime;
+        */
 
-        // Shot inputs
-        if (playerInput.Player.FlatShot.WasPressedThisFrame())
-            TryHit(0f);
-        if (playerInput.Player.TopspinShot.WasPressedThisFrame())
-            TryHit(1f);
-        if (playerInput.Player.SliceShot.WasPressedThisFrame())
-            TryHit(-1f);
+        if (flatAction.WasPressedThisFrame()) TryHit(0f);
+        if (topspinAction.WasPressedThisFrame()) TryHit(1f);
+        if (sliceAction.WasPressedThisFrame()) TryHit(-1f);
     }
 
-    void OpenTimingWindow()
+    void HandleTakeback()
     {
-        timingWindowOpen = true;
-        timingWindowTimer = 0f;
+        bool held = takebackAction.IsPressed();
+        anim.SetBool("Takeback", held);
+        takebackTimer = held ? takebackTimer + Time.deltaTime : 0f;
     }
 
-    void CloseTimingWindow()
-    {
-        timingWindowOpen = false;
-        timingWindowTimer = 0f;
-    }
+    /*
+
+    void OpenTimingWindow() { timingWindowOpen = true; timingWindowTimer = 0f; }
+    void CloseTimingWindow() { timingWindowOpen = false; timingWindowTimer = 0f; }
 
     float CalculateTimingScore()
     {
         if (!timingWindowOpen) return minPowerMultiplier;
-
         float t = timingWindowTimer;
-
-        if (t <= perfectWindowDuration)
-            return 1f;
-
+        if (t <= perfectWindowDuration) return 1f;
         if (t <= totalTimingWindow)
         {
             float decay = 1f - ((t - perfectWindowDuration) / (totalTimingWindow - perfectWindowDuration));
             return Mathf.Lerp(minPowerMultiplier, 1f, decay);
         }
-
         return minPowerMultiplier;
     }
+    */
 
     void TryHit(float shotInput)
     {
         if (takebackTimer < takebackThreshold) return;
 
         anim.SetTrigger("Hit");
+
         if (whooshAudioSource != null && racketWhoosh != null)
         {
             whooshAudioSource.pitch = Random.Range(whooshMinPitch, whooshMaxPitch);
             whooshAudioSource.PlayOneShot(racketWhoosh);
         }
+
         takebackTimer = 0f;
 
-        float distanceToBall = Vector3.Distance(transform.position, ball.transform.position);
-        if (distanceToBall > hitRadius) return;
+        if (Vector3.Distance(transform.position, ball.transform.position) > hitRadius) return;
 
-        float timingScore = CalculateTimingScore();
-        CloseTimingWindow();
+        float timingScore = 1f;
 
         Vector3 toBall = ball.transform.position - transform.position;
         float side = Vector3.Dot(toBall, playerBody.right);
-        Debug.Log(side >= 0 ? "Forehand" : "Backhand");
+        Debug.Log($"{gameObject.name}: {(side >= 0 ? "Forehand" : "Backhand")}");
 
         StartCoroutine(DelayedHit(shotInput, timingScore));
     }
@@ -166,28 +180,20 @@ public class PlayerShot : MonoBehaviour
         if (hitAudioSource != null && clipToPlay != null)
             hitAudioSource.PlayOneShot(clipToPlay);
 
-        Vector2 moveInput = playerInput.Player.Move.ReadValue<Vector2>();
-        float baseSpeed;
-        float spinAmount;
-        float arc;
+        float h = moveAction.ReadValue<Vector2>().x;
 
+        float baseSpeed, spinAmount, arc;
         if (shotInput > 0.5f)
         {
-            baseSpeed = topspinSpeed;
-            spinAmount = 1.5f;
-            arc = topspinArc;
+            baseSpeed = topspinSpeed; spinAmount = 1.5f; arc = topspinArc;
         }
         else if (shotInput < -0.5f)
         {
-            baseSpeed = sliceSpeed;
-            spinAmount = -1.5f;
-            arc = sliceArc;
+            baseSpeed = sliceSpeed; spinAmount = -1.5f; arc = sliceArc;
         }
         else
         {
-            baseSpeed = flatSpeed;
-            spinAmount = 0f;
-            arc = flatArc;
+            baseSpeed = flatSpeed; spinAmount = 0f; arc = flatArc;
         }
 
         float speed = baseSpeed * timingScore;
@@ -195,31 +201,29 @@ public class PlayerShot : MonoBehaviour
         float errorAmount = (1f - timingScore) * maxDirectionError;
         float directionError = Random.Range(-errorAmount, errorAmount);
 
-        float directionOffset = moveInput.x * 4f;
         Vector3 dynamicTarget = new Vector3(
-            targetCourtPosition.position.x + directionOffset,
+            targetCourtPosition.position.x + h * 4f,
             targetCourtPosition.position.y,
             targetCourtPosition.position.z
         );
 
         Vector3 toTarget = dynamicTarget - ball.transform.position;
         toTarget = Quaternion.Euler(0, directionError, 0) * toTarget;
-        Vector3 erroredTarget = ball.transform.position + toTarget;
 
         Vector3 velocity = CalculateArcVelocity(
             ball.transform.position,
-            erroredTarget,
-            speed,
-            arc
+            ball.transform.position + toTarget,
+            speed, arc
         );
 
         ballRb.linearVelocity = velocity;
 
         BallPhysics bp = ball.GetComponent<BallPhysics>();
-        if (bp != null)
-            bp.SetSpin(Vector3.right, spinAmount);
+        Vector3 travelDir = new Vector3(velocity.x, 0, velocity.z).normalized;
+        Vector3 spinAxis = new Vector3(travelDir.z, 0, -travelDir.x);
+        if (bp != null) bp.SetSpin(spinAxis, spinAmount);
 
-        Debug.Log($"Timing Score: {timingScore:F2} | Speed: {speed:F1} | Direction Error: {directionError:F1}deg");
+        Debug.Log($"{gameObject.name} | Speed: {speed:F1} | Error: {directionError:F1}deg");
     }
 
     Vector3 CalculateArcVelocity(Vector3 origin, Vector3 target, float speed, float height)
@@ -228,9 +232,15 @@ public class PlayerShot : MonoBehaviour
         Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
         float distance = toTargetXZ.magnitude;
         float time = distance / speed;
+
+        Debug.Log($"Origin: {origin}, Target: {target}, Distance: {distance}, Time: {time}");
+
         float vy = (2 * height) / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
-        Vector3 velocity = toTargetXZ.normalized * speed;
-        velocity.y = vy;
-        return velocity;
+        Vector3 vel = toTargetXZ.normalized * speed;
+        vel.y = vy;
+
+        Debug.Log($"Velocity: {vel}");
+
+        return vel;
     }
 }
