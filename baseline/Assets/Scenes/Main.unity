@@ -147,7 +147,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -784,12 +784,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
   flatSpeed: 35
-  topspinSpeed: 16
+  topspinSpeed: 20
   sliceSpeed: 15
   hitRadius: 2.5
   targetCourtPosition: {fileID: 1232951672}
   flatArc: -1.2
-  topspinArc: 4
+  topspinArc: 2.4
   sliceArc: -3
   takebackThreshold: 0.2
   forehandHitDelay: 0.2083
@@ -874,7 +874,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -971,7 +971,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1464,7 +1464,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1561,7 +1561,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1614,12 +1614,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
   flatSpeed: 35
-  topspinSpeed: 16
+  topspinSpeed: 20
   sliceSpeed: 15
   hitRadius: 2.5
   targetCourtPosition: {fileID: 905187610}
   flatArc: -1.2
-  topspinArc: 4
+  topspinArc: 2.4
   sliceArc: -3
   takebackThreshold: 0.2
   forehandHitDelay: 0.2083
@@ -2931,6 +2931,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
       propertyPath: m_Name
       value: court
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000727337907857773, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000727337907857773, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000727337907857773, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000727337907857773, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2022229891526177332, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
       propertyPath: m_LocalScale.x
