@@ -20,7 +20,8 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private float takebackThreshold = 0.2f;
 
     [Header("Timing")]
-    [SerializeField] private float hitDelay = 0.2083f;
+    [SerializeField] private float forehandHitDelay = 0.2083f;
+    [SerializeField] private float backhandHitDelay = 0.1667f;
 
     [Header("Timing System")]
     [SerializeField] private float perfectWindowDuration = 0.15f;
@@ -51,6 +52,7 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private Animator anim;
     [SerializeField] private Transform playerBody;
+    [SerializeField] private bool flipSide = false;
 
     private InputAction moveAction;
     private InputAction takebackAction;
@@ -116,11 +118,32 @@ public class PlayerShot : MonoBehaviour
         if (sliceAction.WasPressedThisFrame()) TryHit(-1f);
     }
 
+    private bool? lockedForehand = null;
+
     void HandleTakeback()
     {
         bool held = takebackAction.IsPressed();
-        anim.SetBool("Takeback", held);
         takebackTimer = held ? takebackTimer + Time.deltaTime : 0f;
+
+        if (held)
+        {
+            if (lockedForehand == null)
+            {
+                Vector3 toBall = ball.transform.position - playerBody.position;
+                float side = Vector3.Dot(toBall, Vector3.right);
+                bool isForehand = flipSide ? side < 0f : side >= 0f;
+                lockedForehand = isForehand;
+            }
+
+            anim.SetBool("ForehandTakeback", lockedForehand.Value);
+            anim.SetBool("BackhandTakeback", !lockedForehand.Value);
+        }
+        else
+        {
+            lockedForehand = null;
+            anim.SetBool("ForehandTakeback", false);
+            anim.SetBool("BackhandTakeback", false);
+        }
     }
 
     /*
@@ -160,14 +183,14 @@ public class PlayerShot : MonoBehaviour
 
         float timingScore = 1f;
 
-        Vector3 toBall = ball.transform.position - transform.position;
-        float side = Vector3.Dot(toBall, playerBody.right);
-        Debug.Log($"{gameObject.name}: {(side >= 0 ? "Forehand" : "Backhand")}");
+        bool isForehand = lockedForehand ?? true;
+        Debug.Log($"{gameObject.name}: {(isForehand ? "Forehand" : "Backhand")}");
 
-        StartCoroutine(DelayedHit(shotInput, timingScore));
+        float hitDelay = isForehand ? forehandHitDelay : backhandHitDelay;
+        StartCoroutine(DelayedHit(shotInput, timingScore, hitDelay));
     }
 
-    IEnumerator DelayedHit(float shotInput, float timingScore)
+    IEnumerator DelayedHit(float shotInput, float timingScore, float hitDelay)
     {
         yield return new WaitForSeconds(hitDelay);
 
@@ -180,7 +203,9 @@ public class PlayerShot : MonoBehaviour
         if (hitAudioSource != null && clipToPlay != null)
             hitAudioSource.PlayOneShot(clipToPlay);
 
-        float h = moveAction.ReadValue<Vector2>().x;
+        Vector2 input = moveAction.ReadValue<Vector2>();
+        Vector3 worldMove = playerBody.TransformDirection(new Vector3(input.x, 0, input.y));
+        float h = worldMove.x;
 
         float baseSpeed, spinAmount, arc;
         if (shotInput > 0.5f)
@@ -223,7 +248,7 @@ public class PlayerShot : MonoBehaviour
         Vector3 spinAxis = new Vector3(travelDir.z, 0, -travelDir.x);
         if (bp != null) bp.SetSpin(spinAxis, spinAmount);
 
-        Debug.Log($"{gameObject.name} | Speed: {speed:F1} | Error: {directionError:F1}deg");
+        //Debug.Log($"{gameObject.name} | Speed: {speed:F1} | Error: {directionError:F1}deg");
     }
 
     Vector3 CalculateArcVelocity(Vector3 origin, Vector3 target, float speed, float height)
@@ -233,13 +258,13 @@ public class PlayerShot : MonoBehaviour
         float distance = toTargetXZ.magnitude;
         float time = distance / speed;
 
-        Debug.Log($"Origin: {origin}, Target: {target}, Distance: {distance}, Time: {time}");
+        //Debug.Log($"Origin: {origin}, Target: {target}, Distance: {distance}, Time: {time}");
 
         float vy = (2 * height) / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
         Vector3 vel = toTargetXZ.normalized * speed;
         vel.y = vy;
 
-        Debug.Log($"Velocity: {vel}");
+        //Debug.Log($"Velocity: {vel}");
 
         return vel;
     }

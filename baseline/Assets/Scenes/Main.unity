@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LookAround
   sensitivity: 0.02
   verticalClamp: 55
-  playerBody: {fileID: 561017684}
+  playerBody: {fileID: 375355837}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,7 +725,7 @@ MonoBehaviour:
   moveSpeed: 5
   sprintSpeed: 16
   acceleration: 15
-  playerBody: {fileID: 561017684}
+  playerBody: {fileID: 375355837}
   inputActionAsset: {fileID: -944628639613478452, guid: 69c91898482f75142a9ebc5bc8853d60, type: 3}
   actionMapName: Player
   moveActionName: Move
@@ -784,15 +784,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
   flatSpeed: 35
-  topspinSpeed: 24
+  topspinSpeed: 16
   sliceSpeed: 15
   hitRadius: 2.5
   targetCourtPosition: {fileID: 1232951672}
   flatArc: -1.2
-  topspinArc: 2.2
+  topspinArc: 4
   sliceArc: -3
   takebackThreshold: 0.2
-  hitDelay: 0.2083
+  forehandHitDelay: 0.2083
+  backhandHitDelay: 0.1667
   perfectWindowDuration: 0.15
   totalTimingWindow: 0.5
   minPowerMultiplier: 0.68
@@ -814,7 +815,8 @@ MonoBehaviour:
   whooshMaxPitch: 1.1
   ball: {fileID: 1584277578}
   anim: {fileID: 1921456766}
-  playerBody: {fileID: 561017684}
+  playerBody: {fileID: 375355837}
+  flipSide: 0
 --- !u!82 &561017686
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1305,7 +1307,7 @@ Light:
   serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1612,15 +1614,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
   flatSpeed: 35
-  topspinSpeed: 24
+  topspinSpeed: 16
   sliceSpeed: 15
   hitRadius: 2.5
   targetCourtPosition: {fileID: 905187610}
   flatArc: -1.2
-  topspinArc: 2.2
+  topspinArc: 4
   sliceArc: -3
   takebackThreshold: 0.2
-  hitDelay: 0.2083
+  forehandHitDelay: 0.2083
+  backhandHitDelay: 0.1667
   perfectWindowDuration: 0.15
   totalTimingWindow: 0.5
   minPowerMultiplier: 0.68
@@ -1642,7 +1645,8 @@ MonoBehaviour:
   whooshMaxPitch: 1.1
   ball: {fileID: 1584277578}
   anim: {fileID: 1603561097}
-  playerBody: {fileID: 1451872478}
+  playerBody: {fileID: 1603561098}
+  flipSide: 1
 --- !u!114 &1451872476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1658,7 +1662,7 @@ MonoBehaviour:
   moveSpeed: 5
   sprintSpeed: 16
   acceleration: 15
-  playerBody: {fileID: 1451872478}
+  playerBody: {fileID: 1603561098}
   inputActionAsset: {fileID: -944628639613478452, guid: ce1c911aa7c60f44a935cc1e2b883819, type: 3}
   actionMapName: Player
   moveActionName: Move
@@ -1770,7 +1774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LookAround
   sensitivity: 0.02
   verticalClamp: 55
-  playerBody: {fileID: 1451872478}
+  playerBody: {fileID: 1603561098}
 --- !u!114 &1456137411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2861,7 +2865,7 @@ Transform:
   m_GameObject: {fileID: 2017160980}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.32, y: 4, z: -10.98}
+  m_LocalPosition: {x: 1.32, y: 4, z: 10.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2920,6 +2924,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5986100876843434640, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4945a943c9833be4bac1cc7dd7946409, type: 2}
     - target: {fileID: 919132149155446097, guid: f7498f06383692140bc33ad6f45ebc5c, type: 3}
       propertyPath: m_Name
       value: court
