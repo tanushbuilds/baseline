@@ -154,6 +154,15 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Serve"",
+                    ""type"": ""Button"",
+                    ""id"": ""9294ce33-cb3f-4545-88a9-d447c14e7501"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -277,6 +286,17 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da9da79f-0d64-456c-bc40-5cfa6819325b"",
+                    ""path"": ""<Keyboard>/numpad1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Serve"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -292,6 +312,7 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
         m_Player_SliceShot = m_Player.FindAction("SliceShot", throwIfNotFound: true);
         m_Player_Takeback = m_Player.FindAction("Takeback", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_Serve = m_Player.FindAction("Serve", throwIfNotFound: true);
     }
 
     ~@TennisControls_P2()
@@ -379,6 +400,7 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SliceShot;
     private readonly InputAction m_Player_Takeback;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_Serve;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -418,6 +440,10 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Look".
         /// </summary>
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Serve".
+        /// </summary>
+        public InputAction @Serve => m_Wrapper.m_Player_Serve;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -465,6 +491,9 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Serve.started += instance.OnServe;
+            @Serve.performed += instance.OnServe;
+            @Serve.canceled += instance.OnServe;
         }
 
         /// <summary>
@@ -497,6 +526,9 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Serve.started -= instance.OnServe;
+            @Serve.performed -= instance.OnServe;
+            @Serve.canceled -= instance.OnServe;
         }
 
         /// <summary>
@@ -586,5 +618,12 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Serve" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnServe(InputAction.CallbackContext context);
     }
 }
