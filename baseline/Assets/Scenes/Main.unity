@@ -813,6 +813,7 @@ MonoBehaviour:
   ball: {fileID: 1584277578}
   anim: {fileID: 1451872480}
   playerBody: {fileID: 1603561098}
+  flipSide: 1
   playerMovement: {fileID: 1451872476}
 --- !u!114 &1451872476
 MonoBehaviour:
@@ -2943,7 +2944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128f76455ba6aaa409f9f03070cf0052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  startingServer: 1
+  startingServer: 0
   player1Movement: {fileID: 2117308578}
   player2Movement: {fileID: 1451872476}
   player1Shot: {fileID: 2117308577}
@@ -4446,6 +4447,7 @@ MonoBehaviour:
   ball: {fileID: 1584277578}
   anim: {fileID: 2117308574}
   playerBody: {fileID: 1995334091}
+  flipSide: 0
   playerMovement: {fileID: 2117308578}
 --- !u!114 &2117308578
 MonoBehaviour:

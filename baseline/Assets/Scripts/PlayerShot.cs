@@ -52,6 +52,7 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private Animator anim;
     [SerializeField] private Transform playerBody;
+    [SerializeField] private bool flipSide = false;
 
     // movement reference
     [SerializeField] private PlayerMovement playerMovement;
@@ -70,6 +71,8 @@ public class PlayerShot : MonoBehaviour
 
 
     private bool hasHit;
+    private bool ballReleased;
+    private bool isPreparingServe = false;
 
     void Awake()
     {
@@ -122,11 +125,14 @@ public class PlayerShot : MonoBehaviour
 
         bool held = isServeState && takebackAction.IsPressed();
 
+        isPreparingServe = held;
+
         anim.SetBool("ServePrepare", held);
     }
 
     void FireServe()
     {
+        if (!ballReleased) return;
         if (playerMovement != null &&
             playerMovement.currentState != PlayerMovement.PlayerState.Serving)
             return;
@@ -176,7 +182,7 @@ public class PlayerShot : MonoBehaviour
             {
                 Vector3 toBall = ball.transform.position - playerBody.position;
                 float side = Vector3.Dot(toBall, Vector3.right);
-                lockedForehand = side >= 0f;
+                lockedForehand = flipSide ? side < 0f : side >= 0f;
             }
 
             anim.SetBool("ForehandTakeback", lockedForehand.Value);
@@ -214,6 +220,7 @@ public class PlayerShot : MonoBehaviour
         hasHit = true;
 
         bool isForehand = lockedForehand ?? true;
+
 
         Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 worldMove = playerBody.TransformDirection(new Vector3(input.x, 0, input.y));
@@ -294,6 +301,10 @@ public class PlayerShot : MonoBehaviour
 
     public void ReleaseBall()
     {
+        if (!isPreparingServe) return;
+        if (ballReleased) return;
+
+        ballReleased = true;
         serveBall.ReleaseBall();
     }
 }
