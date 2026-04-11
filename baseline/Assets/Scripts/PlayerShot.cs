@@ -70,8 +70,8 @@ public class PlayerShot : MonoBehaviour
 
 
 
-    private bool hasHit;
-    private bool ballReleased;
+    private bool hasHit = false;
+    private bool ballReleased = false;
     private bool isPreparingServe = false;
 
     void Awake()
@@ -160,6 +160,8 @@ public class PlayerShot : MonoBehaviour
         );
 
         ballRb.linearVelocity = velocity;
+
+        StartCoroutine(ResetHasHit());
 
         // Topspin so the ball kicks down after bouncing
         BallPhysics bp = ball.GetComponent<BallPhysics>();
@@ -256,6 +258,8 @@ public class PlayerShot : MonoBehaviour
 
         ballRb.linearVelocity = velocity;
 
+        StartCoroutine(ResetHasHit());
+
         BallPhysics bp = ball.GetComponent<BallPhysics>();
         if (bp != null)
         {
@@ -307,4 +311,10 @@ public class PlayerShot : MonoBehaviour
         ballReleased = true;
         serveBall.ReleaseBall();
     }
+    private IEnumerator ResetHasHit()
+    {
+        yield return new WaitForSeconds(0.3f);
+        hasHit = false;
+    }
+
 }
