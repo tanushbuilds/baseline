@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     {
         currentServer = startingServer;
         SetServingState();
+
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
     }
 
     void SetServingState()
