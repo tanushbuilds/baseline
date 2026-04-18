@@ -17,7 +17,31 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Armature|BackhandContact' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandIndex2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky2'
+      has translation animation that will be discarded.\n\nClip 'Armature|ForehandContact'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandIndex1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky1'
+      has translation animation that will be discarded.\n\nClip 'Armature|ForehandTakeback'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandThumb2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandIndex1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky1'
+      has translation animation that will be discarded.\n\nClip 'Armature|ServePrepare'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandThumb1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandThumb2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandIndex2'
+      has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -35,7 +59,7 @@ ModelImporter:
       takeName: Armature|BackhandContact
       internalID: -8423267036524050922
       firstFrame: 0
-      lastFrame: 9
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
