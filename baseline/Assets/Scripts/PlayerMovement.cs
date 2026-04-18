@@ -93,6 +93,12 @@ public class PlayerMovement : MonoBehaviour
 
         bool isMoving = moveDirection.magnitude > 0.1f;
         animator.SetBool("isRunning", isMoving);
+
+        float rightDot = Vector3.Dot(moveDirection, Vector3.right);
+        bool isForehandRun = isMoving && rightDot > 0.3f;
+        bool isBackhandRun = isMoving && rightDot < -0.3f;
+        animator.SetBool("isForehandRun", isForehandRun);
+        animator.SetBool("isBackhandRun", isBackhandRun);
     }
 
     void HandleGravity()
