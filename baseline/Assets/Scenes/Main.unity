@@ -398,6 +398,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 173.22, y: 40.8, z: 0}
+--- !u!4 &1226871711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5002894804432499110, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+  m_PrefabInstance: {fileID: 1539467855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1232951671
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +841,7 @@ MonoBehaviour:
   actionMapName: Player
   moveActionName: Move
   sprintActionName: Sprint
+  animator: {fileID: 1451872480}
 --- !u!143 &1451872477
 CharacterController:
   m_ObjectHideFlags: 0
@@ -894,7 +900,15 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig12:LeftHandThumb2'\n\tTransform 'mixamorig12:LeftHandIndex2'\n\tTransform
+    'mixamorig12:LeftHandThumb1'\n\tTransform 'mixamorig12:LeftHandIndex3'\n\tTransform
+    'mixamorig12:LeftHandPinky2'\n\tTransform 'mixamorig12:LeftHandIndex1'\n\tTransform
+    'mixamorig12:LeftHandRing2'\n\tTransform 'mixamorig12:LeftHandThumb2'\n\tTransform
+    'mixamorig12:LeftShoulder'\n\tTransform 'mixamorig12:RightArm'\n\tand more ...\n\tFrom
+    animation clip 'Armature_ServeHit'\n\tFrom animation clip 'Armature_ServePrepare'\n\tFrom
+    animation clip 'Armature_ServeStance'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -965,6 +979,7 @@ MonoBehaviour:
   sensitivity: 0.02
   verticalClamp: 55
   playerBody: {fileID: 1603561098}
+  spineBone: {fileID: 1226871711}
 --- !u!114 &1456137411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,7 +1063,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1127,6 +1142,7 @@ MonoBehaviour:
   sensitivity: 0.02
   verticalClamp: 55
   playerBody: {fileID: 1995334091}
+  spineBone: {fileID: 1734967064}
 --- !u!114 &1527699594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1218,7 +1234,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1296,7 +1312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.972
+      value: -0.939
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2014,6 +2030,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4416906264691103822, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4471176695428615689, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 45.74789
@@ -2331,15 +2351,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0aa8417b47e0941499e91f52a297a2dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.67
+      value: 1.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0aa8417b47e0941499e91f52a297a2dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.69
+      value: 2.395
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0aa8417b47e0941499e91f52a297a2dc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.07
+      value: -9.598
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0aa8417b47e0941499e91f52a297a2dc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2931,6 +2951,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1734967064 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5002894804432499110, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+  m_PrefabInstance: {fileID: 1995334090}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1738992825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2960,7 +2985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128f76455ba6aaa409f9f03070cf0052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  startingServer: 1
+  startingServer: 2
   player1Movement: {fileID: 2117308578}
   player2Movement: {fileID: 1451872476}
   player1Shot: {fileID: 2117308577}
@@ -3796,6 +3821,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4416906264691103822, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4471176695428615689, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 45.74789
@@ -4215,6 +4244,7 @@ GameObject:
   - component: {fileID: 2117308576}
   - component: {fileID: 2117308575}
   - component: {fileID: 2117308574}
+  - component: {fileID: 2117308581}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -4239,7 +4269,15 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig12:LeftHandThumb2'\n\tTransform 'mixamorig12:LeftHandIndex2'\n\tTransform
+    'mixamorig12:LeftHandThumb1'\n\tTransform 'mixamorig12:LeftHandIndex3'\n\tTransform
+    'mixamorig12:LeftHandPinky2'\n\tTransform 'mixamorig12:LeftHandIndex1'\n\tTransform
+    'mixamorig12:LeftHandRing2'\n\tTransform 'mixamorig12:LeftHandThumb2'\n\tTransform
+    'mixamorig12:LeftShoulder'\n\tTransform 'mixamorig12:RightArm'\n\tand more ...\n\tFrom
+    animation clip 'Armature_ServeHit'\n\tFrom animation clip 'Armature_ServePrepare'\n\tFrom
+    animation clip 'Armature_ServeStance'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4494,14 +4532,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   currentState: 0
-  moveSpeed: 5
-  sprintSpeed: 16
+  moveSpeed: 6
+  sprintSpeed: 6
   acceleration: 15
   playerBody: {fileID: 1995334091}
   inputActionAsset: {fileID: -944628639613478452, guid: 69c91898482f75142a9ebc5bc8853d60, type: 3}
   actionMapName: Player
   moveActionName: Move
   sprintActionName: Sprint
+  animator: {fileID: 2117308574}
 --- !u!143 &2117308579
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4543,6 +4582,21 @@ Transform:
   - {fileID: 1995334091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2117308581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117308572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1cefaee40083124998c298fc4348768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForehandMaskBlend
+  forehandFullBodyLayer: 1
+  forehandUpperBodyLayer: 2
+  blendSpeed: 8
 --- !u!1 &47547020712466293
 GameObject:
   m_ObjectHideFlags: 0

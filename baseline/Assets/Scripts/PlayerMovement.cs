@@ -25,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private string moveActionName = "Move";
     [SerializeField] private string sprintActionName = "Sprint";
 
+
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
     private InputAction moveAction;
     private InputAction sprintAction;
     private CharacterController cc;
@@ -86,6 +90,9 @@ public class PlayerMovement : MonoBehaviour
         velocity = Vector3.Lerp(velocity, targetVelocity, acceleration * Time.deltaTime);
 
         cc.Move(new Vector3(velocity.x, 0f, velocity.z) * Time.deltaTime);
+
+        bool isMoving = moveDirection.magnitude > 0.1f;
+        animator.SetBool("isRunning", isMoving);
     }
 
     void HandleGravity()

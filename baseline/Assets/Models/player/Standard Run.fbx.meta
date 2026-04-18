@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fc228f1750e06e845a97f13a19ec871f
+guid: 874c8be27d935b7429a55e9cbb6e933e
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,23 +31,23 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|ForehandTakeback
-      takeName: Armature|ForehandTakeback
-      internalID: -6097427748126671247
+      name: Armature|Run
+      takeName: Armature|Run
+      internalID: -7551964380084998518
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 43
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
