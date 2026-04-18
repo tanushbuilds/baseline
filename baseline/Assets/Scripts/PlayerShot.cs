@@ -207,6 +207,10 @@ public class PlayerShot : MonoBehaviour
         if (takebackTimer < takebackThreshold) return;
 
         anim.SetTrigger("Hit");
+        playerMovement?.StartSwing();
+
+        StartCoroutine(ResetHasHit());
+
 
         if (whooshAudioSource != null && racketWhoosh != null)
         {
@@ -258,7 +262,6 @@ public class PlayerShot : MonoBehaviour
 
         ballRb.linearVelocity = velocity;
 
-        StartCoroutine(ResetHasHit());
 
         BallPhysics bp = ball.GetComponent<BallPhysics>();
         if (bp != null)
@@ -313,8 +316,9 @@ public class PlayerShot : MonoBehaviour
     }
     private IEnumerator ResetHasHit()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         hasHit = false;
+        playerMovement?.EndSwing();
     }
 
 }

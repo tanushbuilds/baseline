@@ -4534,7 +4534,7 @@ MonoBehaviour:
   currentState: 0
   moveSpeed: 6
   sprintSpeed: 6
-  acceleration: 15
+  acceleration: 5
   playerBody: {fileID: 1995334091}
   inputActionAsset: {fileID: -944628639613478452, guid: 69c91898482f75142a9ebc5bc8853d60, type: 3}
   actionMapName: Player

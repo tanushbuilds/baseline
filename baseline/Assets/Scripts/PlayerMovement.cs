@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public enum PlayerState
     {
         Normal,
-        Serving
+        Serving,
+        Swinging
     }
 
     public PlayerState currentState = PlayerState.Normal;
@@ -58,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Disable movement during serve
-        if (currentState == PlayerState.Serving)
+        if (currentState == PlayerState.Serving | currentState == PlayerState.Swinging)
         {
             HandleGravity(); // still apply gravity
             return;
@@ -114,11 +115,27 @@ public class PlayerMovement : MonoBehaviour
     public void StartServe()
     {
         currentState = PlayerState.Serving;
-        velocity = Vector3.zero; // stop sliding
+        StopMovement();
     }
+
 
     public void EndServe()
     {
         currentState = PlayerState.Normal;
+    }
+
+    public void StartSwing()
+    {
+        currentState = PlayerState.Swinging;
+    }
+
+    public void EndSwing()
+    {
+        currentState = PlayerState.Normal;
+    }
+
+    public void StopMovement()
+    {
+        velocity = Vector3.zero;
     }
 }
