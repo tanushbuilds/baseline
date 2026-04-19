@@ -19,12 +19,16 @@ public class PlayerShot : MonoBehaviour
     [Header("Takeback")]
     [SerializeField] private float takebackThreshold = 0.2f;
 
+    [Header("Timing")]
+    [SerializeField] private float forehandHitDelay = 0.2083f;
+    [SerializeField] private float backhandHitDelay = 0.1667f;
+
     [Header("Serve Ball")]
     [SerializeField] private ServeBall serveBall;
 
-
     [Header("Serve Settings")]
     [SerializeField] private float serveSpeed = 30f;
+    [SerializeField] private float serveHitDelay = 0.21f;
     [SerializeField] private Transform serveTargetPosition;
 
     [Header("Input")]
@@ -40,10 +44,7 @@ public class PlayerShot : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource hitAudioSource;
     [SerializeField] private AudioSource whooshAudioSource;
-    //[SerializeField] private AudioClip flatHitSound;
-    //[SerializeField] private AudioClip topspinHitSound;
     [SerializeField] private AudioClip hitSound;
-    //[SerializeField] private AudioClip sliceHitSound;
     [SerializeField] private AudioClip racketWhoosh;
     [SerializeField] private float whooshMinPitch = 0.9f;
     [SerializeField] private float whooshMaxPitch = 1.1f;
@@ -54,7 +55,6 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private Transform playerBody;
     [SerializeField] private bool flipSide = false;
 
-    // movement reference
     [SerializeField] private PlayerMovement playerMovement;
 
     private InputAction moveAction;
@@ -67,8 +67,6 @@ public class PlayerShot : MonoBehaviour
     private Rigidbody ballRb;
     private float takebackTimer = 0f;
     private bool? lockedForehand = null;
-
-
 
     private bool hasHit = false;
     private bool ballReleased = false;
@@ -89,22 +87,16 @@ public class PlayerShot : MonoBehaviour
 
     void OnEnable()
     {
-        moveAction.Enable();
-        takebackAction.Enable();
-        flatAction.Enable();
-        topspinAction.Enable();
-        sliceAction.Enable();
-        serveAction.Enable();
+        moveAction.Enable(); takebackAction.Enable();
+        flatAction.Enable(); topspinAction.Enable();
+        sliceAction.Enable(); serveAction.Enable();
     }
 
     void OnDisable()
     {
-        moveAction.Disable();
-        takebackAction.Disable();
-        flatAction.Disable();
-        topspinAction.Disable();
-        sliceAction.Disable();
-        serveAction.Disable();
+        moveAction.Disable(); takebackAction.Disable();
+        flatAction.Disable(); topspinAction.Disable();
+        sliceAction.Disable(); serveAction.Disable();
     }
 
     void Update()
@@ -124,9 +116,7 @@ public class PlayerShot : MonoBehaviour
                             playerMovement.currentState == PlayerMovement.PlayerState.Serving;
 
         bool held = isServeState && takebackAction.IsPressed();
-
         isPreparingServe = held;
-
         anim.SetBool("ServePrepare", held);
     }
 
@@ -134,43 +124,35 @@ public class PlayerShot : MonoBehaviour
     {
         if (!ballReleased) return;
         if (playerMovement != null &&
-            playerMovement.currentState != PlayerMovement.PlayerState.Serving)
-            return;
+            playerMovement.currentState != PlayerMovement.PlayerState.Serving) return;
 
         anim.SetTrigger("ServeHit");
+        StartCoroutine(DelayedServe());
+    }
 
-        hasHit = true;
+    IEnumerator DelayedServe()
+    {
+        yield return new WaitForSeconds(serveHitDelay);
 
-        // Allow slight horizontal aim via move input
+        if (hitAudioSource != null && hitSound != null)
+            hitAudioSource.PlayOneShot(hitSound);
+
         Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 worldMove = playerBody.TransformDirection(new Vector3(input.x, 0f, input.y));
-
         Vector3 target = serveTargetPosition.position + new Vector3(worldMove.x * 2f, 0f, 0f);
 
-        // Serve arc: ball starts high (contact point), travels downward into the service box.
-        // Negative arc height means the peak is already behind us — ball goes high-to-low,
-        // mirroring how topspin goes low-to-high-to-low but inverted.
-        float serveArcHeight = 0.5f;
-
-        Vector3 velocity = CalculateArcVelocity(
-            ball.transform.position,
-            target,
-            serveSpeed,
-            serveArcHeight
-        );
-
+        Vector3 velocity = CalculateArcVelocity(ball.transform.position, target, serveSpeed, 0.5f);
         ballRb.linearVelocity = velocity;
 
-        StartCoroutine(ResetHasHit());
-
-        // Topspin so the ball kicks down after bouncing
         BallPhysics bp = ball.GetComponent<BallPhysics>();
         if (bp != null)
         {
             Vector3 travelDir = new Vector3(velocity.x, 0f, velocity.z).normalized;
-            Vector3 spinAxis = new Vector3(travelDir.z, 0f, -travelDir.x);
-            bp.SetSpin(spinAxis, 2f);
+            bp.SetSpin(new Vector3(travelDir.z, 0f, -travelDir.x), 2f);
         }
+
+        hasHit = true;
+        StartCoroutine(ResetHasHit());
     }
 
     void HandleTakeback()
@@ -201,16 +183,13 @@ public class PlayerShot : MonoBehaviour
     void TryHit(float shotInput)
     {
         if (playerMovement != null &&
-            playerMovement.currentState == PlayerMovement.PlayerState.Serving)
-            return;
+            playerMovement.currentState == PlayerMovement.PlayerState.Serving) return;
 
         if (takebackTimer < takebackThreshold) return;
 
         anim.SetTrigger("Hit");
         playerMovement?.StartSwing();
-
         StartCoroutine(ResetHasHit());
-
 
         if (whooshAudioSource != null && racketWhoosh != null)
         {
@@ -220,32 +199,28 @@ public class PlayerShot : MonoBehaviour
 
         takebackTimer = 0f;
 
-        if (Vector3.Distance(transform.position, ball.transform.position) > hitRadius)
-            return;
-
-        hasHit = true;
+        if (Vector3.Distance(transform.position, ball.transform.position) > hitRadius) return;
 
         bool isForehand = lockedForehand ?? true;
+        float hitDelay = isForehand ? forehandHitDelay : backhandHitDelay;
+        StartCoroutine(DelayedHit(shotInput, hitDelay));
+    }
 
+    IEnumerator DelayedHit(float shotInput, float hitDelay)
+    {
+        yield return new WaitForSeconds(hitDelay);
+
+        if (hitAudioSource != null && hitSound != null)
+            hitAudioSource.PlayOneShot(hitSound);
 
         Vector2 input = moveAction.ReadValue<Vector2>();
         Vector3 worldMove = playerBody.TransformDirection(new Vector3(input.x, 0, input.y));
         float h = worldMove.x;
 
         float baseSpeed, spinAmount, arc;
-
-        if (shotInput > 0.5f)
-        {
-            baseSpeed = topspinSpeed; spinAmount = 1.5f; arc = topspinArc;
-        }
-        else if (shotInput < -0.5f)
-        {
-            baseSpeed = sliceSpeed; spinAmount = -1.5f; arc = sliceArc;
-        }
-        else
-        {
-            baseSpeed = flatSpeed; spinAmount = 0f; arc = flatArc;
-        }
+        if (shotInput > 0.5f) { baseSpeed = topspinSpeed; spinAmount = 1.5f; arc = topspinArc; }
+        else if (shotInput < -0.5f) { baseSpeed = sliceSpeed; spinAmount = -1.5f; arc = sliceArc; }
+        else { baseSpeed = flatSpeed; spinAmount = 0f; arc = flatArc; }
 
         Vector3 dynamicTarget = new Vector3(
             targetCourtPosition.position.x + h * 4f,
@@ -253,72 +228,46 @@ public class PlayerShot : MonoBehaviour
             targetCourtPosition.position.z
         );
 
-        Vector3 velocity = CalculateArcVelocity(
-            ball.transform.position,
-            dynamicTarget,
-            baseSpeed,
-            arc
-        );
-
+        Vector3 velocity = CalculateArcVelocity(ball.transform.position, dynamicTarget, baseSpeed, arc);
         ballRb.linearVelocity = velocity;
-
 
         BallPhysics bp = ball.GetComponent<BallPhysics>();
         if (bp != null)
         {
             Vector3 travelDir = new Vector3(velocity.x, 0, velocity.z).normalized;
-            Vector3 spinAxis = new Vector3(travelDir.z, 0, -travelDir.x);
-            bp.SetSpin(spinAxis, spinAmount);
+            bp.SetSpin(new Vector3(travelDir.z, 0, -travelDir.x), spinAmount);
         }
+
+        hasHit = true;
     }
 
     Vector3 CalculateArcVelocity(Vector3 origin, Vector3 target, float speed, float height)
     {
         Vector3 toTarget = target - origin;
         Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
-
         float distance = toTargetXZ.magnitude;
         float time = distance / speed;
-
         float vy = (2 * height) / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
-
         Vector3 vel = toTargetXZ.normalized * speed;
         vel.y = vy;
-
         return vel;
     }
 
-    private void PlayHitSound()
-    {
-        if (hasHit && hitAudioSource != null && hitSound != null)
-            hitAudioSource.PlayOneShot(hitSound);
-    }
-
     // ===== SERVE CONTROL =====
-
-    public void StartServe()
-    {
-        anim.SetBool("ServeStance", true);
-    }
-
-    public void EndServe()
-    {
-        anim.SetBool("ServeStance", false);
-    }
+    public void StartServe() { anim.SetBool("ServeStance", true); }
+    public void EndServe() { anim.SetBool("ServeStance", false); }
 
     public void ReleaseBall()
     {
-        if (!isPreparingServe) return;
-        if (ballReleased) return;
-
+        if (!isPreparingServe || ballReleased) return;
         ballReleased = true;
         serveBall.ReleaseBall();
     }
+
     private IEnumerator ResetHasHit()
     {
         yield return new WaitForSeconds(0.5f);
         hasHit = false;
         playerMovement?.EndSwing();
     }
-
 }
