@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
-    [SerializeField] private bool flipSide = false;
 
     private InputAction moveAction;
     private InputAction sprintAction;
@@ -82,8 +81,7 @@ public class PlayerMovement : MonoBehaviour
         float rightDot = Vector3.Dot(moveDirection, playerBody.right);
         float forwardDot = Vector3.Dot(moveDirection, playerBody.forward);
 
-        float animX = flipSide ? -rightDot : rightDot;
-        animator.SetFloat("moveX", hasInput ? animX : 0f, 0.1f, Time.deltaTime);
+        animator.SetFloat("moveX", hasInput ? rightDot : 0f, 0.1f, Time.deltaTime);
         animator.SetFloat("moveZ", hasInput ? forwardDot : 0f, 0.1f, Time.deltaTime);
     }
 
