@@ -24,6 +24,8 @@ public class LookAround : MonoBehaviour
 
     void Update()
     {
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed) return;
+
         Vector2 lookInput = playerInput.Player.Look.ReadValue<Vector2>();
         float mouseX = lookInput.x * sensitivity;
         float mouseY = lookInput.y * sensitivity;
