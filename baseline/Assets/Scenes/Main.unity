@@ -1064,13 +1064,13 @@ MonoBehaviour:
   serveHitDelay: 0.21
   serveTargetPosition: {fileID: 891054007}
   minSwipeDistance: 50
-  maxSwipeDistance: 400
+  maxSwipeDistance: 650
   maxHorizontalOffset: 6
   minDepthOffset: -3
   maxDepthOffset: 3
   overshootMultiplier: 1.5
   fastSwipeThreshold: 800
-  cam: {fileID: 0}
+  cam: {fileID: 1456137413}
   inputActionAsset: {fileID: -944628639613478452, guid: ce1c911aa7c60f44a935cc1e2b883819, type: 3}
   actionMapName: Player
   moveActionName: Move
@@ -1110,6 +1110,7 @@ MonoBehaviour:
   moveActionName: Move
   sprintActionName: Sprint
   animator: {fileID: 1451872480}
+  flipSide: 1
 --- !u!143 &1451872477
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5230,6 +5231,7 @@ MonoBehaviour:
   moveActionName: Move
   sprintActionName: Sprint
   animator: {fileID: 2117308574}
+  flipSide: 0
 --- !u!143 &2117308579
 CharacterController:
   m_ObjectHideFlags: 0

@@ -3,19 +3,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // ===== STATE =====
     public enum PlayerState { Normal, Serving, Swinging }
     public PlayerState currentState = PlayerState.Normal;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float sprintSpeed = 16f;
-    [SerializeField] private float acceleration = 20f;   // how fast speed builds up
-    [SerializeField] private float deceleration = 25f;   // how fast speed drops when no input
+    [SerializeField] private float acceleration = 20f;
+    [SerializeField] private float deceleration = 25f;
     [SerializeField] private Transform playerBody;
 
     [Header("Input")]
-    [Tooltip("Drag in a different Input Action Asset for each player.")]
     [SerializeField] private InputActionAsset inputActionAsset;
     [SerializeField] private string actionMapName = "Player";
     [SerializeField] private string moveActionName = "Move";
@@ -23,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
+    [SerializeField] private bool flipSide = false;
 
     private InputAction moveAction;
     private InputAction sprintAction;
@@ -67,25 +66,25 @@ public class PlayerMovement : MonoBehaviour
 
         if (hasInput)
         {
-            // Accelerate toward desired direction + speed
             Vector3 targetVelocity = moveDirection * targetSpeed;
             velocity = Vector3.MoveTowards(velocity, targetVelocity, acceleration * Time.deltaTime);
         }
         else
         {
-            // Decelerate to zero (no sliding)
             velocity = Vector3.MoveTowards(velocity, Vector3.zero, deceleration * Time.deltaTime);
         }
 
         cc.Move(new Vector3(velocity.x, 0f, velocity.z) * Time.deltaTime);
 
-        // ── Animations ──────────────────────────────────────────────
-        bool isMoving = hasInput;
-        animator.SetBool("isRunning", isMoving);
+        // Animations
+        animator.SetBool("isRunning", hasInput);
 
-        float rightDot = Vector3.Dot(moveDirection, Vector3.right);
-        animator.SetBool("isForehandRun", isMoving && rightDot > 0.3f);
-        animator.SetBool("isBackhandRun", isMoving && rightDot < -0.3f);
+        float rightDot = Vector3.Dot(moveDirection, playerBody.right);
+        float forwardDot = Vector3.Dot(moveDirection, playerBody.forward);
+
+        float animX = flipSide ? -rightDot : rightDot;
+        animator.SetFloat("moveX", hasInput ? animX : 0f, 0.1f, Time.deltaTime);
+        animator.SetFloat("moveZ", hasInput ? forwardDot : 0f, 0.1f, Time.deltaTime);
     }
 
     void HandleGravity()
@@ -94,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
             cc.Move(Vector3.down * 9.81f * Time.deltaTime);
     }
 
-    // ===== SERVE / SWING CONTROL =====
     public void StartServe() { currentState = PlayerState.Serving; StopMovement(); }
     public void EndServe() { currentState = PlayerState.Normal; }
     public void StartSwing() { currentState = PlayerState.Swinging; }
