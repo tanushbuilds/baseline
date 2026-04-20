@@ -3,17 +3,18 @@ using UnityEngine;
 public class ForehandMaskBlend : MonoBehaviour
 {
     [Header("Layer Indices")]
-    [SerializeField] private int runFullBodyLayer = 1;      // no mask
-    [SerializeField] private int runLowerBodyLayer = 2;     // lower body mask
-    [SerializeField] private int forehandFullBodyLayer = 3; // no mask
-    [SerializeField] private int forehandUpperBodyLayer = 4;// upper body mask
+    [SerializeField] private int runFullBodyLayer = 1;
+    [SerializeField] private int runLowerBodyLayer = 2;
+    [SerializeField] private int forehandFullBodyLayer = 3;
+    [SerializeField] private int forehandUpperBodyLayer = 4;
 
     [Header("Blend Speed")]
     [SerializeField] private float blendSpeed = 8f;
 
     private Animator _anim;
-    private float _upperBodyWeight = 0f;
+    private float _runFullWeight = 1f;
     private float _runLowerWeight = 0f;
+    private float _upperBodyWeight = 0f;
     private float _forehandFullWeight = 0f;
 
     void Awake()
@@ -32,41 +33,29 @@ public class ForehandMaskBlend : MonoBehaviour
 
         if (!isTakeback)
         {
-            // Full body run, no forehand
+            _runFullWeight = Mathf.Lerp(_runFullWeight, 1f, Time.deltaTime * blendSpeed);
             _runLowerWeight = Mathf.Lerp(_runLowerWeight, 0f, Time.deltaTime * blendSpeed);
             _upperBodyWeight = Mathf.Lerp(_upperBodyWeight, 0f, Time.deltaTime * blendSpeed);
             _forehandFullWeight = Mathf.Lerp(_forehandFullWeight, 0f, Time.deltaTime * blendSpeed);
-
-            _anim.SetLayerWeight(runFullBodyLayer, 1f);
-            _anim.SetLayerWeight(runLowerBodyLayer, _runLowerWeight);
-            _anim.SetLayerWeight(forehandFullBodyLayer, _forehandFullWeight);
-            _anim.SetLayerWeight(forehandUpperBodyLayer, _upperBodyWeight);
-            return;
         }
-
-        if (isMoving)
+        else if (isMoving)
         {
-            // Run (lower only) + forehand upper body
+            _runFullWeight = Mathf.Lerp(_runFullWeight, 0f, Time.deltaTime * blendSpeed);
             _runLowerWeight = Mathf.Lerp(_runLowerWeight, 1f, Time.deltaTime * blendSpeed);
             _upperBodyWeight = Mathf.Lerp(_upperBodyWeight, 1f, Time.deltaTime * blendSpeed);
             _forehandFullWeight = Mathf.Lerp(_forehandFullWeight, 0f, Time.deltaTime * blendSpeed);
-
-            _anim.SetLayerWeight(runFullBodyLayer, 0f);
-            _anim.SetLayerWeight(runLowerBodyLayer, _runLowerWeight);
-            _anim.SetLayerWeight(forehandFullBodyLayer, _forehandFullWeight);
-            _anim.SetLayerWeight(forehandUpperBodyLayer, _upperBodyWeight);
         }
         else
         {
-            // Standing takeback — full forehand, no run
+            _runFullWeight = Mathf.Lerp(_runFullWeight, 0f, Time.deltaTime * blendSpeed);
             _runLowerWeight = Mathf.Lerp(_runLowerWeight, 0f, Time.deltaTime * blendSpeed);
             _upperBodyWeight = Mathf.Lerp(_upperBodyWeight, 0f, Time.deltaTime * blendSpeed);
             _forehandFullWeight = Mathf.Lerp(_forehandFullWeight, 1f, Time.deltaTime * blendSpeed);
-
-            _anim.SetLayerWeight(runFullBodyLayer, 0f);
-            _anim.SetLayerWeight(runLowerBodyLayer, _runLowerWeight);
-            _anim.SetLayerWeight(forehandFullBodyLayer, _forehandFullWeight);
-            _anim.SetLayerWeight(forehandUpperBodyLayer, _upperBodyWeight);
         }
+
+        _anim.SetLayerWeight(runFullBodyLayer, _runFullWeight);
+        _anim.SetLayerWeight(runLowerBodyLayer, _runLowerWeight);
+        _anim.SetLayerWeight(forehandFullBodyLayer, _forehandFullWeight);
+        _anim.SetLayerWeight(forehandUpperBodyLayer, _upperBodyWeight);
     }
 }

@@ -16,12 +16,6 @@ public class LookAround : MonoBehaviour
     void OnEnable() { playerInput.Enable(); }
     void OnDisable() { playerInput.Disable(); }
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
     void Update()
     {
         if (Mouse.current != null && Mouse.current.leftButton.isPressed) return;

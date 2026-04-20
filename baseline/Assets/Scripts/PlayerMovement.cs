@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (currentState == PlayerState.Serving || currentState == PlayerState.Swinging)
+        if (currentState == PlayerState.Serving)
         {
             HandleGravity();
             return;
