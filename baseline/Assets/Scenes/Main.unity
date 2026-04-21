@@ -301,12 +301,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282870332}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.22211906, y: 0.01375445, z: -0.022767715, w: 0.9746567}
-  m_LocalPosition: {x: -0.0020000187, y: 0.044999853, z: 0.12599958}
+  m_LocalRotation: {x: -0.09297147, y: 0.0036091795, z: -0.0010596957, w: 0.9956617}
+  m_LocalPosition: {x: -0.024999976, y: 1.5700002, z: 0.15400028}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1219999822}
+  m_Father: {fileID: 182795926}
   m_LocalEulerAnglesHint: {x: -25.617, y: 2.347, z: -3.21}
 --- !u!114 &282870334
 MonoBehaviour:
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollowNeck
   neckBone: {fileID: 1219999822}
-  rotationSmoothSpeed: 4
+  rotationSmoothSpeed: 1
 --- !u!114 &282870335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,13 +433,13 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.5
     y: 0
     width: 1
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 100
+  field of view: 126
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1751,12 +1751,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       insertIndex: -1
       addedObject: {fileID: 222516511}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 282870333}
     - targetCorrespondingSourceObject: {fileID: -5450181813000984586, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1364917896}
-    - targetCorrespondingSourceObject: {fileID: 7625548322052996930, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 282870333}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
 --- !u!1 &891054006
@@ -2456,10 +2456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2263725f1292a54caad9e3b31dc1f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
-  topspinSpeed: 20
+  topspinSpeed: 14
   hitRadius: 2.5
   targetCourtPosition: {fileID: 905187610}
-  topspinArc: 2.4
+  topspinArc: 2.6
   takebackThreshold: 0.2
   forehandHitDelay: 0.16
   backhandHitDelay: 0.18
@@ -2469,7 +2469,7 @@ MonoBehaviour:
   serveTargetPosition: {fileID: 891054007}
   minSwipeDistance: 50
   maxSwipeDistance: 650
-  maxHorizontalOffset: 6
+  maxHorizontalOffset: 0.45
   minDepthOffset: -3
   maxDepthOffset: 3
   overshootMultiplier: 1.5
@@ -2489,7 +2489,7 @@ MonoBehaviour:
   ball: {fileID: 1584277578}
   anim: {fileID: 1481556275}
   playerBody: {fileID: 182795926}
-  flipSide: 0
+  flipSide: 1
   playerMovement: {fileID: 1481556279}
 --- !u!114 &1481556279
 MonoBehaviour:
@@ -2584,7 +2584,6 @@ GameObject:
   - component: {fileID: 1527699594}
   - component: {fileID: 1527699593}
   - component: {fileID: 1527699592}
-  - component: {fileID: 1527699597}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2600,12 +2599,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1527699590}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.22211906, y: 0.01375445, z: -0.022767715, w: 0.9746567}
-  m_LocalPosition: {x: -0.0020000187, y: 0.044999853, z: 0.12599958}
+  m_LocalRotation: {x: -0.09297147, y: 0.0036091777, z: -0.0010596941, w: 0.9956617}
+  m_LocalPosition: {x: -0.024999976, y: 1.5700003, z: 0.15400028}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1995334093}
+  m_Father: {fileID: 1995334091}
   m_LocalEulerAnglesHint: {x: -25.617, y: 2.347, z: -3.21}
 --- !u!114 &1527699592
 MonoBehaviour:
@@ -2638,7 +2637,7 @@ MonoBehaviour:
   sensitivity: 0.02
   verticalClamp: 55
   playerBody: {fileID: 1995334091}
-  spineBone: {fileID: 1734967064}
+  spineBone: {fileID: 1968866220}
 --- !u!114 &1527699594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2718,13 +2717,13 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: -0.5
     y: 0
     width: 1
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 100
+  field of view: 126
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2742,20 +2741,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1527699597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1527699590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8627811ec3e75a4c8167efd248fa0a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowNeck
-  neckBone: {fileID: 1995334093}
-  rotationSmoothSpeed: 4
 --- !u!1 &1543813328
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,7 +2935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0aa8417b47e0941499e91f52a297a2dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.952
+      value: -0.56
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0aa8417b47e0941499e91f52a297a2dc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4219,6 +4204,34 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04368323
+      objectReference: {fileID: 0}
+    - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9856944
+      objectReference: {fileID: 0}
+    - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0010537357
+      objectReference: {fileID: 0}
+    - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9211228
+      objectReference: {fileID: 0}
+    - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.025712205
+      objectReference: {fileID: 0}
+    - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.38365555
+      objectReference: {fileID: 0}
+    - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.06066303
+      objectReference: {fileID: 0}
+    - target: {fileID: -871749415958018644, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0.046567917
       objectReference: {fileID: 0}
@@ -4785,12 +4798,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1592463901}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1527699591}
     - targetCorrespondingSourceObject: {fileID: -5450181813000984586, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2092868795}
-    - targetCorrespondingSourceObject: {fileID: 7625548322052996930, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1527699591}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
 --- !u!4 &1995334091 stripped
@@ -5206,10 +5219,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2263725f1292a54caad9e3b31dc1f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
-  topspinSpeed: 20
+  topspinSpeed: 14
   hitRadius: 2.5
   targetCourtPosition: {fileID: 1232951672}
-  topspinArc: 2.4
+  topspinArc: 2.6
   takebackThreshold: 0.2
   forehandHitDelay: 0.16
   backhandHitDelay: 0.18
@@ -5219,7 +5232,7 @@ MonoBehaviour:
   serveTargetPosition: {fileID: 275141154}
   minSwipeDistance: 50
   maxSwipeDistance: 650
-  maxHorizontalOffset: 6
+  maxHorizontalOffset: 0.45
   minDepthOffset: -3
   maxDepthOffset: 3
   overshootMultiplier: 1.5

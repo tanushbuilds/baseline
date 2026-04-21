@@ -29,7 +29,7 @@ public class ForehandMaskBlend : MonoBehaviour
     void Update()
     {
         bool isMoving = _anim.GetBool("isRunning");
-        bool isTakeback = _anim.GetBool("ForehandTakeback");
+        bool isTakeback = _anim.GetBool("ForehandTakeback") | _anim.GetBool("BackhandTakeback");
 
         if (!isTakeback)
         {
