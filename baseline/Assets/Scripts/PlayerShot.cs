@@ -59,6 +59,9 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private bool flipSide = false;
     [SerializeField] private PlayerMovement playerMovement;
 
+    [Header("IK")]
+    [SerializeField] private RacketIK racketIK;
+
     private InputAction moveAction;
     private InputAction takebackAction;
     private InputAction serveAction;
@@ -235,7 +238,6 @@ public class PlayerShot : MonoBehaviour
         anim.ResetTrigger("Hit");
         anim.SetTrigger("Hit");
         playerMovement?.StartSwing();
-        StartCoroutine(ResetHasHit());
 
         if (whooshAudioSource != null && racketWhoosh != null)
         {
@@ -245,9 +247,15 @@ public class PlayerShot : MonoBehaviour
 
         takebackTimer = 0f;
 
-        if (Vector3.Distance(transform.position, ball.transform.position) > hitRadius) return;
+        if (Vector3.Distance(transform.position, ball.transform.position) > hitRadius)
+        {
+            // No hit — still need to end swing after animation
+            StartCoroutine(ResetHasHit());
+            return;
+        }
 
         bool isForehand = lockedForehand ?? true;
+        racketIK?.TriggerIK(ball.transform.position, isForehand);
         float hitDelay = isForehand ? forehandHitDelay : backhandHitDelay;
 
         StartCoroutine(DelayedHit(hitDelay, horizontalOffset, depthOffset));
@@ -277,6 +285,7 @@ public class PlayerShot : MonoBehaviour
         }
 
         hasHit = true;
+        StartCoroutine(ResetHasHit()); // only called after confirmed hit
     }
 
     Vector3 CalculateArcVelocity(Vector3 origin, Vector3 target, float speed, float height)

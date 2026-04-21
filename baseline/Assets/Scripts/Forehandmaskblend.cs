@@ -11,6 +11,9 @@ public class ForehandMaskBlend : MonoBehaviour
     [Header("Blend Speed")]
     [SerializeField] private float blendSpeed = 8f;
 
+    [Header("References")]
+    [SerializeField] private PlayerMovement playerMovement;
+
     private Animator _anim;
     private float _runFullWeight = 1f;
     private float _runLowerWeight = 0f;
@@ -29,7 +32,19 @@ public class ForehandMaskBlend : MonoBehaviour
     void Update()
     {
         bool isMoving = _anim.GetBool("isRunning");
-        bool isTakeback = _anim.GetBool("ForehandTakeback") | _anim.GetBool("BackhandTakeback");
+        bool isTakeback = _anim.GetBool("ForehandTakeback") || _anim.GetBool("BackhandTakeback");
+        bool isSwinging = playerMovement != null &&
+                          playerMovement.currentState == PlayerMovement.PlayerState.Swinging;
+
+        // During swing, lock weights where they are and don't blend out
+        if (isSwinging)
+        {
+            _anim.SetLayerWeight(runFullBodyLayer, _runFullWeight);
+            _anim.SetLayerWeight(runLowerBodyLayer, _runLowerWeight);
+            _anim.SetLayerWeight(forehandFullBodyLayer, _forehandFullWeight);
+            _anim.SetLayerWeight(forehandUpperBodyLayer, _upperBodyWeight);
+            return;
+        }
 
         if (!isTakeback)
         {
