@@ -7,10 +7,8 @@ public class LookAround : MonoBehaviour
     [SerializeField] private float sensitivity = 0.3f;
     [SerializeField] private float verticalClamp = 80f;
     [SerializeField] private Transform playerBody;
-    [SerializeField] private Transform spineBone;
 
     private TennisControls playerInput;
-    private float xRotation = 0f;
 
     void Awake() { playerInput = new TennisControls(); }
     void OnEnable() { playerInput.Enable(); }
@@ -24,14 +22,6 @@ public class LookAround : MonoBehaviour
         float mouseX = lookInput.x * sensitivity;
         float mouseY = lookInput.y * sensitivity;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -verticalClamp, verticalClamp);
-
         playerBody.Rotate(Vector3.up * mouseX);
-    }
-
-    void LateUpdate()
-    {
-        spineBone.localRotation *= Quaternion.Euler(xRotation, 0f, 0f);
     }
 }
