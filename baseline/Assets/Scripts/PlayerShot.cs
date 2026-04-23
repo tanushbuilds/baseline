@@ -142,6 +142,7 @@ public class PlayerShot : MonoBehaviour
         // X → horizontal aim, Y → depth (independent axes)
         float normalizedX = (swipeDelta.x / maxSwipeDistance) * overshoot;
         float horizontalOffset = normalizedX * maxHorizontalOffset;
+        if (flipSide) horizontalOffset = -horizontalOffset;
 
         float normalizedY = (swipeDelta.y / maxSwipeDistance) * overshoot;
         float depthOffset = Mathf.Lerp(minDepthOffset, maxDepthOffset, Mathf.Clamp01(normalizedY));
