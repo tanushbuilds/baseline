@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 47930111741953310, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2356585763425533231, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
       propertyPath: inputActionAsset
       value: 
@@ -56,6 +60,10 @@ PrefabInstance:
       propertyPath: inputActionAsset
       value: 
       objectReference: {fileID: -944628639613478452, guid: ce1c911aa7c60f44a935cc1e2b883819, type: 3}
+    - target: {fileID: 4500239993552939469, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 119
+      objectReference: {fileID: 0}
     - target: {fileID: 4500239993552939469, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
       value: 0.5
