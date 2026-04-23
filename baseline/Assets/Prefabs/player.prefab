@@ -2796,7 +2796,6 @@ MonoBehaviour:
   sensitivity: 0.02
   verticalClamp: 55
   playerBody: {fileID: 3175938334175675569}
-  spineBone: {fileID: 0}
 --- !u!114 &8398747392632027171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3923,8 +3922,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8394523028603257634}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.025712205, y: 0.38365555, z: -0.06066303, w: 0.9211228}
-  m_LocalPosition: {x: -0.04368323, y: 0.9856944, z: -0.0010537357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3932,7 +3931,7 @@ Transform:
   - {fileID: 6168521200327393838}
   - {fileID: 2520550832279696486}
   m_Father: {fileID: 5362052684536278252}
-  m_LocalEulerAnglesHint: {x: 0.046567917, y: 74.17603, z: 0.10350752}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8559783424199486728
 GameObject:
   m_ObjectHideFlags: 0
