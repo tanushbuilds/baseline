@@ -5,7 +5,6 @@ public class LookAround : MonoBehaviour
 {
     [Header("Look Settings")]
     [SerializeField] private float sensitivity = 0.3f;
-    [SerializeField] private float verticalClamp = 80f;
     [SerializeField] private Transform playerBody;
 
     private TennisControls playerInput;

@@ -29,6 +29,12 @@ ModelImporter:
       has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle1'
       has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing1'
       has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky1'
+      has translation animation that will be discarded.\n\nClip 'Armature|ForehandContactUpperBody'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandIndex1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky1'
       has translation animation that will be discarded.\n\nClip 'Armature|ForehandTakeback'
       has import animation warnings that might lower retargeting quality:\nNote:
       Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandThumb2'
@@ -59,7 +65,7 @@ ModelImporter:
       takeName: Armature|BackhandTakeback
       internalID: -7316504932435510570
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 33
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

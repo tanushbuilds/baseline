@@ -73,7 +73,6 @@ public class PlayerShot : MonoBehaviour
     private float takebackTimer = 0f;
     private bool? lockedForehand = null;
 
-    private bool hasHit = false;
     private bool ballReleased = false;
     private bool isPreparingServe = false;
 
@@ -199,7 +198,6 @@ public class PlayerShot : MonoBehaviour
             bp.SetSpin(new Vector3(travelDir.z, 0f, -travelDir.x), 2f);
         }
 
-        hasHit = true;
         StartCoroutine(ResetHasHit());
     }
 
@@ -285,7 +283,6 @@ public class PlayerShot : MonoBehaviour
             bp.SetSpin(new Vector3(travelDir.z, 0, -travelDir.x), 1.5f);
         }
 
-        hasHit = true;
         StartCoroutine(ResetHasHit()); // only called after confirmed hit
     }
 
@@ -315,7 +312,6 @@ public class PlayerShot : MonoBehaviour
     private IEnumerator ResetHasHit()
     {
         yield return new WaitForSeconds(0.7f);
-        hasHit = false;
         playerMovement?.EndSwing();
     }
 }

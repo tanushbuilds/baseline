@@ -3305,8 +3305,8 @@ MonoBehaviour:
   targetCourtPosition: {fileID: 0}
   topspinArc: 2.6
   takebackThreshold: 0.2
-  forehandHitDelay: 0.16
-  backhandHitDelay: 0.18
+  forehandHitDelay: 0.3
+  backhandHitDelay: 0.2
   serveBall: {fileID: 0}
   serveSpeed: 20
   serveHitDelay: 0.21
