@@ -714,6 +714,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 794369638771327847, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2812884571176384977, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
       propertyPath: m_Name
       value: player 1
@@ -725,6 +729,10 @@ PrefabInstance:
     - target: {fileID: 6641300641408596253, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112539314342817533, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.200186
       objectReference: {fileID: 0}
     - target: {fileID: 7112539314342817533, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -765,6 +773,14 @@ PrefabInstance:
     - target: {fileID: 7112539314342817533, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130109665226490753, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
+      propertyPath: field of view
+      value: 94.97911
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130109665226490753, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
+      propertyPath: m_FocalLength
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8327982268428227629, guid: dc1df88e01b54844490f0a29c04c73b7, type: 3}
       propertyPath: ball
