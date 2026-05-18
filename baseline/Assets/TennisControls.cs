@@ -290,7 +290,7 @@ public partial class @TennisControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""29759f02-26d3-471b-813b-ecc6aef76ebf"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

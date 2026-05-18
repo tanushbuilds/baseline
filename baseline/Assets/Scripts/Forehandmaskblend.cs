@@ -18,7 +18,7 @@ public class ForehandMaskBlend : MonoBehaviour
     private float _runFullWeight = 1f;
     private float _runLowerWeight = 0f;
     private float _upperBodyWeight = 0f;
-    private float _forehandFullWeight = 0f;
+    private float _forehandFullWeight = 1f;
 
     void Awake()
     {
@@ -39,6 +39,21 @@ public class ForehandMaskBlend : MonoBehaviour
         // During swing, lock weights where they are and don't blend out
         if (isSwinging)
         {
+            if (isMoving)
+            {
+                _runFullWeight = Mathf.Lerp(_runFullWeight, 0f, Time.deltaTime * blendSpeed);
+                _runLowerWeight = Mathf.Lerp(_runLowerWeight, 1f, Time.deltaTime * blendSpeed);
+                _upperBodyWeight = Mathf.Lerp(_upperBodyWeight, 1f, Time.deltaTime * blendSpeed);
+                _forehandFullWeight = Mathf.Lerp(_forehandFullWeight, 0f, Time.deltaTime * blendSpeed);
+            }
+            else
+            {
+                _runFullWeight = Mathf.Lerp(_runFullWeight, 0f, Time.deltaTime * blendSpeed);
+                _runLowerWeight = Mathf.Lerp(_runLowerWeight, 0f, Time.deltaTime * blendSpeed);
+                _upperBodyWeight = Mathf.Lerp(_upperBodyWeight, 0f, Time.deltaTime * blendSpeed);
+                _forehandFullWeight = Mathf.Lerp(_forehandFullWeight, 1f, Time.deltaTime * blendSpeed);
+            }
+
             _anim.SetLayerWeight(runFullBodyLayer, _runFullWeight);
             _anim.SetLayerWeight(runLowerBodyLayer, _runLowerWeight);
             _anim.SetLayerWeight(forehandFullBodyLayer, _forehandFullWeight);

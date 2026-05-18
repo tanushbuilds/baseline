@@ -23,7 +23,19 @@ ModelImporter:
       has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle2'
       has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing2'
       has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky2'
+      has translation animation that will be discarded.\n\nClip 'Armature|BackhandContactUpperBody'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandIndex2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing2'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky2'
       has translation animation that will be discarded.\n\nClip 'Armature|ForehandContact'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandIndex1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandRing1'
+      has translation animation that will be discarded.\n\t'mixamorig12:LeftHandPinky1'
+      has translation animation that will be discarded.\n\nClip 'Armature|ForehandContactUpperBody'
       has import animation warnings that might lower retargeting quality:\nNote:
       Activate translation DOF on avatar to improve retargeting quality.\n\t'mixamorig12:LeftHandIndex1'
       has translation animation that will be discarded.\n\t'mixamorig12:LeftHandMiddle1'
@@ -59,7 +71,7 @@ ModelImporter:
       takeName: Armature|Idle
       internalID: -8945691123924629249
       firstFrame: 0
-      lastFrame: 49
+      lastFrame: 129
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -68,10 +80,10 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0

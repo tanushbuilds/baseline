@@ -18,16 +18,16 @@ MonoBehaviour:
     m_Value: -0.46
   contrast:
     m_OverrideState: 1
-    m_Value: 18
+    m_Value: 2
   colorFilter:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 0.9858491, g: 0.9895406, b: 1, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: -3
 --- !u!114 &-7893295128165547882
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -78,28 +78,6 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &-6654894624894104984
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
-  m_Name: LiftGammaGain
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.LiftGammaGain
-  active: 1
-  lift:
-    m_OverrideState: 1
-    m_Value: {x: 0.7836072, y: 0.83162874, z: 1, w: 0}
-  gamma:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 0.9350136, z: 0.8626691, w: 0}
-  gain:
-    m_OverrideState: 1
-    m_Value: {x: 0.9360654, y: 1, z: 0.9581343, w: 0}
 --- !u!114 &-4125377001834106658
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -193,7 +171,6 @@ MonoBehaviour:
   - {fileID: -8316868817130353138}
   - {fileID: -3081744860612421477}
   - {fileID: 2113054407418805925}
-  - {fileID: -6654894624894104984}
   - {fileID: 6163566309596117389}
 --- !u!114 &849379129802519247
 MonoBehaviour:

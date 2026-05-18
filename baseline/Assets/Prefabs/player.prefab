@@ -189,6 +189,98 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.039862677, y: 0.5895246, z: 0.10416123}
     m_Extent: {x: 0.3048944, y: 0.18383184, z: 0.18894124}
   m_DirtyAABB: 0
+--- !u!1 &198396796168586546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 687652685406805896}
+  - component: {fileID: 9134628019002152944}
+  - component: {fileID: 8707640102239651017}
+  m_Layer: 0
+  m_Name: Racket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &687652685406805896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198396796168586546}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.654547, y: -0.42191532, z: -0.58584756, w: -0.22436209}
+  m_LocalPosition: {x: 1.0879716, y: 0.3934323, z: -0.06504069}
+  m_LocalScale: {x: 1.0000006, y: 0.9999999, z: 1.0000005}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1088541243713121757}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &9134628019002152944
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198396796168586546}
+  m_Mesh: {fileID: -2380562132491229981, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
+--- !u!23 &8707640102239651017
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198396796168586546}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e6e2dca07b291d9459de09f963862a09, type: 2}
+  - {fileID: 2100000, guid: dd1c2eb75678f7140bc097368d321434, type: 2}
+  - {fileID: 2100000, guid: 3b6e8f9cd6b493541a0a23f77536f90a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &225034310241832814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,98 +1232,6 @@ Transform:
   - {fileID: 3139952163292729121}
   m_Father: {fileID: 1079977697140261437}
   m_LocalEulerAnglesHint: {x: 24.920948, y: 39.680706, z: 7.3904104}
---- !u!1 &3116528048764639907
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5017512729404188971}
-  - component: {fileID: 9134628019002152944}
-  - component: {fileID: 8707640102239651017}
-  m_Layer: 0
-  m_Name: Racket
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5017512729404188971
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3116528048764639907}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.654547, y: -0.42191532, z: -0.58584756, w: -0.22436209}
-  m_LocalPosition: {x: 1.0879716, y: 0.3934323, z: -0.06504069}
-  m_LocalScale: {x: 1.0000006, y: 0.9999999, z: 1.0000005}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1088541243713121757}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9134628019002152944
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3116528048764639907}
-  m_Mesh: {fileID: -2380562132491229981, guid: 60b7039b78fd28041ba2644046a9a082, type: 3}
---- !u!23 &8707640102239651017
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3116528048764639907}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e6e2dca07b291d9459de09f963862a09, type: 2}
-  - {fileID: 2100000, guid: dd1c2eb75678f7140bc097368d321434, type: 2}
-  - {fileID: 2100000, guid: 3b6e8f9cd6b493541a0a23f77536f90a, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3196375622452523041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2639,7 +2639,7 @@ Transform:
   - {fileID: 3338761494736376905}
   - {fileID: 567162983751917660}
   - {fileID: 7306957314230873148}
-  - {fileID: 5017512729404188971}
+  - {fileID: 687652685406805896}
   m_Father: {fileID: 8530292879782092149}
   m_LocalEulerAnglesHint: {x: 19.951311, y: -33.27072, z: -76.53916}
 --- !u!1 &5748211839038412280
@@ -2656,6 +2656,7 @@ GameObject:
   - component: {fileID: 4321792103287895414}
   - component: {fileID: 2749527010608363151}
   - component: {fileID: 8398747392632027171}
+  - component: {fileID: 6529879048953129715}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2671,12 +2672,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5748211839038412280}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.18484563, y: 0.011707101, z: -0.012915191, w: 0.98261297}
-  m_LocalPosition: {x: 0.0055267825, y: 0.089965045, z: 0.08418735}
+  m_LocalRotation: {x: -0.055025674, y: 0.0011013014, z: 0.008348832, w: 0.99844944}
+  m_LocalPosition: {x: -0.016999986, y: 1.5652001, z: 0.1548996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7306083119324707957}
+  m_Father: {fileID: 3175938334175675569}
   m_LocalEulerAnglesHint: {x: -6.309, y: 0.074, z: 0.954}
 --- !u!20 &4500239993552939469
 Camera:
@@ -2811,6 +2812,22 @@ MonoBehaviour:
   hitShakeMagnitude: 0
   moveShakeMagnitude: 0
   moveShakeSpeed: 0
+--- !u!114 &6529879048953129715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748211839038412280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2a481584f127a4cb893e7dd6bec4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmoothFollow
+  target: {fileID: 7306083119324707957}
+  smoothSpeed: 0.2
+  offset: {x: 0, y: 0.1, z: 0.1}
+  rotationOffset: {x: -15, y: 0, z: 0}
 --- !u!1 &6005082114404948323
 GameObject:
   m_ObjectHideFlags: 0
@@ -3125,7 +3142,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5437513268066963597}
-  - {fileID: 7942742539609685970}
   m_Father: {fileID: 4858573172843618319}
   m_LocalEulerAnglesHint: {x: 12.749392, y: -42.9638, z: 2.938685}
 --- !u!1 &7461059521907782632
@@ -3237,6 +3253,7 @@ Transform:
   - {fileID: 7940976021684088678}
   - {fileID: 4017715310882525942}
   - {fileID: 1505185961765264631}
+  - {fileID: 7942742539609685970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!143 &1244802460422917232
@@ -3299,13 +3316,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2263725f1292a54caad9e3b31dc1f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShot
-  topspinSpeed: 18
-  hitRadius: 2.5
+  topspinSpeed: 21
+  hitRadius: 4
   targetCourtPosition: {fileID: 0}
-  topspinArc: 2.6
+  topspinArc: 3.2
   takebackThreshold: 0.2
-  forehandHitDelay: 0.3
-  backhandHitDelay: 0.2
+  forehandHitDelay: 0.285
+  backhandHitDelay: 0.185
   serveBall: {fileID: 0}
   serveSpeed: 20
   serveHitDelay: 0.21
@@ -3546,15 +3563,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig12:LeftHandThumb2'\n\tTransform 'mixamorig12:LeftHandIndex2'\n\tTransform
-    'mixamorig12:LeftHandThumb1'\n\tTransform 'mixamorig12:LeftHandIndex3'\n\tTransform
-    'mixamorig12:LeftHandPinky2'\n\tTransform 'mixamorig12:LeftHandIndex1'\n\tTransform
-    'mixamorig12:LeftHandRing2'\n\tTransform 'mixamorig12:LeftHandThumb2'\n\tTransform
-    'mixamorig12:LeftShoulder'\n\tTransform 'mixamorig12:RightArm'\n\tand more ...\n\tFrom
-    animation clip 'Armature_ServeHit'\n\tFrom animation clip 'Armature_ServePrepare'\n\tFrom
-    animation clip 'Armature_ServeStance'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

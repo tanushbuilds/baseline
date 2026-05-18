@@ -211,7 +211,7 @@ public partial class @TennisControls_P2: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""IJKL"",
+                    ""name"": ""Arrow Keys"",
                     ""id"": ""f9d79b32-a786-47be-adb6-c8fc122ef1ec"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",

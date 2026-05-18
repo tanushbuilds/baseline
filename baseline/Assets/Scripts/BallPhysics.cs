@@ -10,8 +10,8 @@ public class BallPhysics : MonoBehaviour
     [SerializeField] private AudioClip bounceSound;
     [SerializeField] private float bounceMinPitch = 0.95f;
     [SerializeField] private float bounceMaxPitch = 1.05f;
-
-    private Rigidbody rb;
+    [SerializeField] private Rigidbody rb;
+    
     private Vector3 spinAxis = Vector3.zero;
     private float spinAmount = 0f;
     private bool spinActive = false;
@@ -63,5 +63,13 @@ public class BallPhysics : MonoBehaviour
         spinAxis = axis;
         spinAmount = amount;
         spinActive = true;
+    }
+    public void Float()
+    {
+        rb.useGravity = false;
+    }
+    public void UnFloat()
+    {
+        rb.useGravity = true;
     }
 }

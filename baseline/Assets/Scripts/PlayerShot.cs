@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System;
+using Random = UnityEngine.Random;
 
 public class PlayerShot : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class PlayerShot : MonoBehaviour
 
     [Header("Arc Heights")]
     [SerializeField] private float topspinArc = 1.8f;
+    [SerializeField] private float serveArc = 1.8f;
 
     [Header("Takeback")]
     [SerializeField] private float takebackThreshold = 0.2f;
@@ -18,9 +21,6 @@ public class PlayerShot : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float forehandHitDelay = 0.2083f;
     [SerializeField] private float backhandHitDelay = 0.1667f;
-
-    [Header("Serve Ball")]
-    [SerializeField] private ServeBall serveBall;
 
     [Header("Serve Settings")]
     [SerializeField] private float serveSpeed = 30f;
@@ -70,16 +70,19 @@ public class PlayerShot : MonoBehaviour
     private InputAction _pointerPress;
 
     private Rigidbody ballRb;
+    private string NAME;
     private float takebackTimer = 0f;
-    private bool? lockedForehand = null;
 
-    private bool ballReleased = false;
-    private bool isPreparingServe = false;
 
     // Swipe state
     private Vector2 _swipeStart;
     private float _swipeStartTime;
     private bool _isSwiping;
+
+
+    public event Action<string> OnServeHit;
+    private bool isServing = false;
+
 
     void Awake()
     {
@@ -151,44 +154,25 @@ public class PlayerShot : MonoBehaviour
 
     void Update()
     {
-        HandleTakeback();
-        HandleServePrepare();
-
         if (serveAction.WasPressedThisFrame()) FireServe();
+        
+        if (isServing) return;
+        HandleTakeback();
     }
 
-    void HandleServePrepare()
+    public void FireServe()
     {
-        bool isServeState = playerMovement != null &&
-                            playerMovement.currentState == PlayerMovement.PlayerState.Serving;
-
-        bool held = isServeState && takebackAction.IsPressed();
-        isPreparingServe = held;
-        anim.SetBool("ServePrepare", held);
-    }
-
-    void FireServe()
-    {
-        if (!ballReleased) return;
         if (playerMovement != null &&
             playerMovement.currentState != PlayerMovement.PlayerState.Serving) return;
 
-        anim.SetTrigger("ServeHit");
-        StartCoroutine(DelayedServe());
+        Serve();
     }
 
-    IEnumerator DelayedServe()
+    private void Serve()
     {
-        yield return new WaitForSeconds(serveHitDelay);
+        Vector3 target = serveTargetPosition.position;
 
-        if (hitAudioSource != null && hitSound != null)
-            hitAudioSource.PlayOneShot(hitSound);
-
-        Vector2 input = moveAction.ReadValue<Vector2>();
-        Vector3 worldMove = playerBody.TransformDirection(new Vector3(input.x, 0f, input.y));
-        Vector3 target = serveTargetPosition.position + new Vector3(worldMove.x * 2f, 0f, 0f);
-
-        Vector3 velocity = CalculateArcVelocity(ball.transform.position, target, serveSpeed, 0.5f);
+        Vector3 velocity = CalculateArcVelocity(ball.transform.position, target, serveSpeed, serveArc);
         ballRb.linearVelocity = velocity;
 
         BallPhysics bp = ball.GetComponent<BallPhysics>();
@@ -197,7 +181,8 @@ public class PlayerShot : MonoBehaviour
             Vector3 travelDir = new Vector3(velocity.x, 0f, velocity.z).normalized;
             bp.SetSpin(new Vector3(travelDir.z, 0f, -travelDir.x), 2f);
         }
-
+        OnServeHit?.Invoke(NAME);
+        isServing = false;
         StartCoroutine(ResetHasHit());
     }
 
@@ -208,19 +193,15 @@ public class PlayerShot : MonoBehaviour
 
         if (held)
         {
-            if (lockedForehand == null)
-            {
-                Vector3 toBall = ball.transform.position - playerBody.position;
-                float side = Vector3.Dot(toBall, Vector3.right);
-                lockedForehand = flipSide ? side < 0f : side >= 0f;
-            }
+            Vector3 toBall = ball.transform.position - playerBody.position;
+            float side = Vector3.Dot(toBall, Vector3.right);
+            bool isForehand = flipSide ? side < 0f : side >= 0f;
 
-            anim.SetBool("ForehandTakeback", lockedForehand.Value);
-            anim.SetBool("BackhandTakeback", !lockedForehand.Value);
+            anim.SetBool("ForehandTakeback", isForehand);
+            anim.SetBool("BackhandTakeback", !isForehand);
         }
         else
         {
-            lockedForehand = null;
             StartCoroutine(ClearTakebackBools());
         }
     }
@@ -253,7 +234,9 @@ public class PlayerShot : MonoBehaviour
             return;
         }
 
-        bool isForehand = lockedForehand ?? true;
+        Vector3 toBall = ball.transform.position - playerBody.position;
+        float side = Vector3.Dot(toBall, Vector3.right);
+        bool isForehand = flipSide ? side < 0f : side >= 0f;
         racketIK?.TriggerIK(ball.transform.position, isForehand);
         float hitDelay = isForehand ? forehandHitDelay : backhandHitDelay;
 
@@ -298,20 +281,13 @@ public class PlayerShot : MonoBehaviour
         return vel;
     }
 
-    // ===== SERVE CONTROL =====
-    public void StartServe() { anim.SetBool("ServeStance", true); }
-    public void EndServe() { anim.SetBool("ServeStance", false); }
-
-    public void ReleaseBall()
-    {
-        if (!isPreparingServe || ballReleased) return;
-        ballReleased = true;
-        serveBall.ReleaseBall();
-    }
-
     private IEnumerator ResetHasHit()
     {
         yield return new WaitForSeconds(0.7f);
         playerMovement?.EndSwing();
+    }
+    public void SetIsServing(bool isServing)
+    {
+        this.isServing = isServing;
     }
 }
