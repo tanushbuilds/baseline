@@ -172,6 +172,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8002715054591587901, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002715054591587901, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

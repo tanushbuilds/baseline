@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using System.Collections;
 using System;
 using Random = UnityEngine.Random;
@@ -24,25 +25,12 @@ public class PlayerShot : MonoBehaviour
 
     [Header("Serve Settings")]
     [SerializeField] private float serveSpeed = 30f;
-    [SerializeField] private float serveHitDelay = 0.21f;
     [SerializeField] private Transform serveTargetPosition;
 
-    [Header("Swipe")]
-    [SerializeField] private float minSwipeDistance = 50f;      // pixels — below this ignored
-    [SerializeField] private float maxSwipeDistance = 400f;     // pixels — maps to max depth
-    [SerializeField] private float maxHorizontalOffset = 4f;    // world units left/right aim
-    [SerializeField] private float minDepthOffset = -3f;        // world units — short swipe (short ball)
-    [SerializeField] private float maxDepthOffset = 3f;         // world units — long swipe (deep ball)
-    [SerializeField] private float overshootMultiplier = 1.5f;  // how much fast swipes overshoot
-    [SerializeField] private float fastSwipeThreshold = 800f;   // pixels/sec — above this = fast swipe
-    [SerializeField] private Camera cam;
-
-    [Header("Input")]
-    [SerializeField] private InputActionAsset inputActionAsset;
-    [SerializeField] private string actionMapName = "Player";
-    [SerializeField] private string moveActionName = "Move";
-    [SerializeField] private string takebackActionName = "Takeback";
-    [SerializeField] private string serveActionName = "Serve";
+    [Header("Shot Offsets")]
+    [SerializeField] private float maxHorizontalOffset = 4f;
+    [SerializeField] private float minDepthOffset = -3f;
+    [SerializeField] private float maxDepthOffset = 3f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource hitAudioSource;
@@ -58,120 +46,212 @@ public class PlayerShot : MonoBehaviour
     [SerializeField] private Transform playerBody;
     [SerializeField] private bool flipSide = false;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private string NAME;
 
     [Header("IK")]
     [SerializeField] private RacketIK racketIK;
 
-    private InputAction moveAction;
-    private InputAction takebackAction;
-    private InputAction serveAction;
-
-    private InputAction _pointerPosition;
-    private InputAction _pointerPress;
-
+    // ── Internal ──────────────────────────────────────────────────────────────
     private Rigidbody ballRb;
-    private string NAME;
     private float takebackTimer = 0f;
-
-
-    // Swipe state
-    private Vector2 _swipeStart;
-    private float _swipeStartTime;
-    private bool _isSwiping;
-
-
-    public event Action<string> OnServeHit;
     private bool isServing = false;
 
+    public event Action<string> OnServeHit;
+    public event Action OnBallHit;
+
+    // add this with your other state fields
+    private bool takebackLocked = false;
+    private bool lockedForehand = false;
+
+    // ─────────────────────────────────────────────────────────────────────────
 
     void Awake()
     {
-        if (cam == null) cam = Camera.main;
         ballRb = ball.GetComponent<Rigidbody>();
-
-        var map = inputActionAsset.FindActionMap(actionMapName, true);
-        moveAction = map.FindAction(moveActionName, true);
-        takebackAction = map.FindAction(takebackActionName, true);
-        serveAction = map.FindAction(serveActionName, true);
-
-        _pointerPosition = new InputAction("SwipePosition", binding: "<Pointer>/position");
-        _pointerPress = new InputAction("SwipePress", binding: "<Mouse>/leftButton");
-
-        _pointerPress.started += _ => { _swipeStart = _pointerPosition.ReadValue<Vector2>(); _swipeStartTime = Time.unscaledTime; _isSwiping = true; };
-        _pointerPress.canceled += _ => OnSwipeReleased();
     }
 
-    void OnEnable()
+    // ── Device helpers — reads from PlayerMovement's assigned device ──────────
+
+    Gamepad GetGamepad()
     {
-        moveAction.Enable(); takebackAction.Enable(); serveAction.Enable();
-        _pointerPosition.Enable(); _pointerPress.Enable();
+        if (playerMovement.useJoystick) return null;
+        int idx = playerMovement.gamepadIndex;
+        return idx < Gamepad.all.Count ? Gamepad.all[idx] : null;
     }
 
-    void OnDisable()
+    Joystick GetJoystick()
     {
-        moveAction.Disable(); takebackAction.Disable(); serveAction.Disable();
-        _pointerPosition.Disable(); _pointerPress.Disable();
+        if (!playerMovement.useJoystick) return null;
+        return Joystick.all.Count > 0 ? Joystick.all[0] : null;
     }
 
-    void OnSwipeReleased()
+    ButtonControl GetJoystickButton(Joystick joy, string name)
     {
-        if (!_isSwiping) return;
-        _isSwiping = false;
-
-        // Must have takeback held
-        if (takebackTimer < takebackThreshold) return;
-
-        // Must not be serving
-        if (playerMovement != null &&
-            playerMovement.currentState == PlayerMovement.PlayerState.Serving) return;
-
-        Vector2 swipeEnd = _pointerPosition.ReadValue<Vector2>();
-        Vector2 swipeDelta = swipeEnd - _swipeStart;
-        float swipeLen = swipeDelta.magnitude;
-
-        if (swipeLen < minSwipeDistance) return;
-
-        // Swipe speed (pixels/sec) — drives overshoot
-        float swipeDuration = Mathf.Max(Time.unscaledTime - _swipeStartTime, 0.01f);
-        float swipeSpeed = swipeLen / swipeDuration;
-
-        // 0 = slow/controlled, 1 = max fast
-        float speedFactor = Mathf.Clamp01(swipeSpeed / fastSwipeThreshold);
-
-        // Overshoot: fast swipe pushes target further in swipe direction
-        float overshoot = Mathf.Lerp(1f, overshootMultiplier, speedFactor);
-
-        // X → horizontal aim, Y → depth (independent axes)
-        float normalizedX = (swipeDelta.x / maxSwipeDistance) * overshoot;
-        float horizontalOffset = normalizedX * maxHorizontalOffset;
-        if (flipSide) horizontalOffset = -horizontalOffset;
-
-        float normalizedY = (swipeDelta.y / maxSwipeDistance) * overshoot;
-        float depthOffset = Mathf.Lerp(minDepthOffset, maxDepthOffset, Mathf.Clamp01(normalizedY));
-
-        TryHit(horizontalOffset, depthOffset);
+        foreach (var control in joy.allControls)
+            if (control.name == name && control is ButtonControl btn)
+                return btn;
+        return null;
     }
+
+    Vector2 ReadMoveInput()
+    {
+        if (playerMovement.useJoystick)
+        {
+            var joy = GetJoystick();
+            if (joy == null) return Vector2.zero;
+            return new Vector2(joy.stick.x.ReadValue(), joy.stick.y.ReadValue());
+        }
+        else
+        {
+            var pad = GetGamepad();
+            if (pad == null) return Vector2.zero;
+            return pad.leftStick.ReadValue();
+        }
+    }
+
+    bool WasButtonPressed(string button)
+    {
+        if (!playerMovement.deviceAssigned) return false;
+
+        if (playerMovement.useJoystick)
+        {
+            var joy = GetJoystick();
+            if (joy == null) return false;
+
+            // SHANWAN Android Gamepad layout:
+            // trigger = A, button2 = B, button4 = X, button5 = Y
+            // button7 = LB (Serve), button9 = LT (Takeback)
+            var lt = GetJoystickButton(joy, "button9");
+            var lb = GetJoystickButton(joy, "button7");
+            var a = GetJoystickButton(joy, "trigger");
+            var b = GetJoystickButton(joy, "button2");
+            var x = GetJoystickButton(joy, "button4");
+            var y = GetJoystickButton(joy, "button5");
+
+            return button switch
+            {
+                "Takeback" => lt != null && lt.wasPressedThisFrame,
+                "Serve" => lb != null && lb.wasPressedThisFrame,
+                "Hit" => (a != null && a.wasPressedThisFrame) ||
+                              (b != null && b.wasPressedThisFrame) ||
+                              (x != null && x.wasPressedThisFrame) ||
+                              (y != null && y.wasPressedThisFrame),
+                _ => false
+            };
+        }
+        else
+        {
+            var pad = GetGamepad();
+            if (pad == null) return false;
+
+            return button switch
+            {
+                "Takeback" => pad.leftTrigger.wasPressedThisFrame,
+                "Serve" => pad.leftShoulder.wasPressedThisFrame,
+                "Hit" => pad.buttonSouth.wasPressedThisFrame ||
+                              pad.buttonNorth.wasPressedThisFrame ||
+                              pad.buttonEast.wasPressedThisFrame ||
+                              pad.buttonWest.wasPressedThisFrame,
+                _ => false
+            };
+        }
+    }
+
+    bool IsButtonHeld(string button)
+    {
+        if (!playerMovement.deviceAssigned) return false;
+
+        if (playerMovement.useJoystick)
+        {
+            var joy = GetJoystick();
+            if (joy == null) return false;
+            var lt = GetJoystickButton(joy, "button9");
+            return button == "Takeback" && lt != null && lt.isPressed;
+        }
+        else
+        {
+            var pad = GetGamepad();
+            if (pad == null) return false;
+            return button == "Takeback" && pad.leftTrigger.isPressed;
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
 
     void Update()
     {
-        if (serveAction.WasPressedThisFrame()) FireServe();
-        
+        // Don't do anything until device is assigned
+        if (!playerMovement.deviceAssigned) return;
+
+        if (WasButtonPressed("Serve") &&
+            playerMovement.currentState == PlayerMovement.PlayerState.Serving)
+            FireServe();
+
         if (isServing) return;
+
         HandleTakeback();
+        HandleShots();
     }
+
+    void HandleTakeback()
+    {
+        bool held = IsButtonHeld("Takeback");
+        takebackTimer = held ? takebackTimer + Time.deltaTime : 0f;
+
+        if (held)
+        {
+            if (!takebackLocked)
+            {
+                // First frame of holding — decide forehand or backhand and lock it
+                Vector3 toBall = ball.transform.position - playerBody.position;
+                float side = Vector3.Dot(toBall, Vector3.right);
+                lockedForehand = flipSide ? side < 0f : side >= 0f;
+                takebackLocked = true;
+            }
+
+            anim.SetBool("ForehandTakeback", lockedForehand);
+            anim.SetBool("BackhandTakeback", !lockedForehand);
+        }
+        else
+        {
+            if (takebackLocked)
+            {
+                takebackLocked = false;
+                StartCoroutine(ClearTakebackBools());
+            }
+        }
+    }
+
+    void HandleShots()
+    {
+        if (takebackTimer < takebackThreshold) return;
+        if (playerMovement.currentState == PlayerMovement.PlayerState.Serving) return;
+
+        if (WasButtonPressed("Hit"))
+        {
+            Vector2 moveInput = ReadMoveInput();
+
+            float horizontalOffset = moveInput.x * maxHorizontalOffset;
+            if (flipSide) horizontalOffset = -horizontalOffset;
+
+            float depthOffset = moveInput.y > 0.1f ? maxDepthOffset :
+                                moveInput.y < -0.1f ? minDepthOffset : 0f;
+
+            TryHit(horizontalOffset, depthOffset);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
 
     public void FireServe()
     {
-        if (playerMovement != null &&
-            playerMovement.currentState != PlayerMovement.PlayerState.Serving) return;
-
+        if (playerMovement.currentState != PlayerMovement.PlayerState.Serving) return;
         Serve();
     }
 
     private void Serve()
     {
         Vector3 target = serveTargetPosition.position;
-
         Vector3 velocity = CalculateArcVelocity(ball.transform.position, target, serveSpeed, serveArc);
         ballRb.linearVelocity = velocity;
 
@@ -181,36 +261,10 @@ public class PlayerShot : MonoBehaviour
             Vector3 travelDir = new Vector3(velocity.x, 0f, velocity.z).normalized;
             bp.SetSpin(new Vector3(travelDir.z, 0f, -travelDir.x), 2f);
         }
+
         OnServeHit?.Invoke(NAME);
         isServing = false;
         StartCoroutine(ResetHasHit());
-    }
-
-    void HandleTakeback()
-    {
-        bool held = takebackAction.IsPressed();
-        takebackTimer = held ? takebackTimer + Time.deltaTime : 0f;
-
-        if (held)
-        {
-            Vector3 toBall = ball.transform.position - playerBody.position;
-            float side = Vector3.Dot(toBall, Vector3.right);
-            bool isForehand = flipSide ? side < 0f : side >= 0f;
-
-            anim.SetBool("ForehandTakeback", isForehand);
-            anim.SetBool("BackhandTakeback", !isForehand);
-        }
-        else
-        {
-            StartCoroutine(ClearTakebackBools());
-        }
-    }
-
-    IEnumerator ClearTakebackBools()
-    {
-        yield return null;
-        anim.SetBool("ForehandTakeback", false);
-        anim.SetBool("BackhandTakeback", false);
     }
 
     void TryHit(float horizontalOffset, float depthOffset)
@@ -229,7 +283,6 @@ public class PlayerShot : MonoBehaviour
 
         if (Vector3.Distance(transform.position, ball.transform.position) > hitRadius)
         {
-            // No hit — still need to end swing after animation
             StartCoroutine(ResetHasHit());
             return;
         }
@@ -238,14 +291,16 @@ public class PlayerShot : MonoBehaviour
         float side = Vector3.Dot(toBall, Vector3.right);
         bool isForehand = flipSide ? side < 0f : side >= 0f;
         racketIK?.TriggerIK(ball.transform.position, isForehand);
-        float hitDelay = isForehand ? forehandHitDelay : backhandHitDelay;
 
+        float hitDelay = isForehand ? forehandHitDelay : backhandHitDelay;
         StartCoroutine(DelayedHit(hitDelay, horizontalOffset, depthOffset));
     }
 
     IEnumerator DelayedHit(float hitDelay, float horizontalOffset, float depthOffset)
     {
         yield return new WaitForSeconds(hitDelay);
+
+        OnBallHit?.Invoke();
 
         if (hitAudioSource != null && hitSound != null)
             hitAudioSource.PlayOneShot(hitSound);
@@ -256,7 +311,8 @@ public class PlayerShot : MonoBehaviour
             targetCourtPosition.position.z + depthOffset
         );
 
-        Vector3 velocity = CalculateArcVelocity(ball.transform.position, dynamicTarget, topspinSpeed, topspinArc);
+        Vector3 velocity = CalculateArcVelocity(ball.transform.position, dynamicTarget,
+                                                topspinSpeed, topspinArc);
         ballRb.linearVelocity = velocity;
 
         BallPhysics bp = ball.GetComponent<BallPhysics>();
@@ -266,7 +322,7 @@ public class PlayerShot : MonoBehaviour
             bp.SetSpin(new Vector3(travelDir.z, 0, -travelDir.x), 1.5f);
         }
 
-        StartCoroutine(ResetHasHit()); // only called after confirmed hit
+        StartCoroutine(ResetHasHit());
     }
 
     Vector3 CalculateArcVelocity(Vector3 origin, Vector3 target, float speed, float height)
@@ -281,13 +337,18 @@ public class PlayerShot : MonoBehaviour
         return vel;
     }
 
-    private IEnumerator ResetHasHit()
+    IEnumerator ClearTakebackBools()
+    {
+        yield return null;
+        anim.SetBool("ForehandTakeback", false);
+        anim.SetBool("BackhandTakeback", false);
+    }
+
+    IEnumerator ResetHasHit()
     {
         yield return new WaitForSeconds(0.7f);
         playerMovement?.EndSwing();
     }
-    public void SetIsServing(bool isServing)
-    {
-        this.isServing = isServing;
-    }
+
+    public void SetIsServing(bool serving) => isServing = serving;
 }

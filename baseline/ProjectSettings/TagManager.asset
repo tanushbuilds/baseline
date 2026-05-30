@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Court
+  - Ball
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - UI
   - Player1Head
   - Player2Head
-  - 
-  - 
+  - Player
+  - Ball
   - 
   - 
   - 

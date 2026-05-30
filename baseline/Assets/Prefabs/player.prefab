@@ -2654,8 +2654,6 @@ GameObject:
   - component: {fileID: 4500239993552939469}
   - component: {fileID: 8605968467894703273}
   - component: {fileID: 4321792103287895414}
-  - component: {fileID: 2749527010608363151}
-  - component: {fileID: 8398747392632027171}
   - component: {fileID: 6529879048953129715}
   m_Layer: 0
   m_Name: Main Camera
@@ -2782,36 +2780,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &2749527010608363151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5748211839038412280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d84a745e946dc2245be3abb4892cbc74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LookAround
-  sensitivity: 0.02
-  playerBody: {fileID: 3175938334175675569}
---- !u!114 &8398747392632027171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5748211839038412280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4922b78d6b027f64c804a76bdca1e914, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
-  hitShakeDuration: 0
-  hitShakeMagnitude: 0
-  moveShakeMagnitude: 0
-  moveShakeSpeed: 0
 --- !u!114 &6529879048953129715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3299,11 +3267,9 @@ MonoBehaviour:
   acceleration: 9
   deceleration: 20
   playerBody: {fileID: 3175938334175675569}
-  inputActionAsset: {fileID: 0}
-  actionMapName: Player
-  moveActionName: Move
-  sprintActionName: Sprint
   animator: {fileID: 1336795561806435153}
+  playerIndex: 0
+  useJoystick: 0
 --- !u!114 &4410445136695901793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3320,26 +3286,15 @@ MonoBehaviour:
   hitRadius: 4
   targetCourtPosition: {fileID: 0}
   topspinArc: 3.2
+  serveArc: 3
   takebackThreshold: 0.2
   forehandHitDelay: 0.285
   backhandHitDelay: 0.185
-  serveBall: {fileID: 0}
   serveSpeed: 20
-  serveHitDelay: 0.21
   serveTargetPosition: {fileID: 0}
-  minSwipeDistance: 50
-  maxSwipeDistance: 650
   maxHorizontalOffset: 0.45
   minDepthOffset: -3
   maxDepthOffset: 3
-  overshootMultiplier: 1.5
-  fastSwipeThreshold: 800
-  cam: {fileID: 4500239993552939469}
-  inputActionAsset: {fileID: 0}
-  actionMapName: Player
-  moveActionName: Move
-  takebackActionName: Takeback
-  serveActionName: Serve
   hitAudioSource: {fileID: 8655708479812852457}
   whooshAudioSource: {fileID: 4023768443279377465}
   hitSound: {fileID: 8300000, guid: c2082deb14a87db43bacc1461868852e, type: 3}
@@ -3351,7 +3306,10 @@ MonoBehaviour:
   playerBody: {fileID: 3175938334175675569}
   flipSide: 1
   playerMovement: {fileID: 2356585763425533231}
+  NAME: 
   racketIK: {fileID: 3742248759749078620}
+  playerIndex: 0
+  useJoystick: 0
 --- !u!82 &8655708479812852457
 AudioSource:
   m_ObjectHideFlags: 0

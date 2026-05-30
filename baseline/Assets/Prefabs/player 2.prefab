@@ -180,6 +180,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: player 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8002715054591587901, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: 3466a0e9-9c04-4028-962d-7d454845ab59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002715054591587901, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad2
+      objectReference: {fileID: 0}
     - target: {fileID: 8707640102239651017, guid: 41f6f891ab3289c4c89fdc936f0043e9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
